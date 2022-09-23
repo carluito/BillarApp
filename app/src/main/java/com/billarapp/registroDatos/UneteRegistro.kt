@@ -216,36 +216,6 @@ class UneteRegistro : AppCompatActivity() {
     }
 
 
-   /* @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (requestCode == GOOGLESIGNIN) {
-
-            val task = GoogleSignIn.getSignedInAccountFromIntent(data)
-            try {
-                val cuenta = task.getResult(ApiException::class.java)
-
-                if (cuenta != null) {
-
-                    val credencial = GoogleAuthProvider.getCredential(cuenta.idToken, null)
-                    FirebaseAuth.getInstance().signInWithCredential(credencial)
-                        .addOnCompleteListener {
-
-                            if (it.isSuccessful) {
-                                cuenta.toString()
-                                yaRegistrado(cuenta.email ?: "", tipoProveedor.GOOGLE)
-                            } else {
-                                fallo()
-                            }
-                        }
-                }
-            } catch (e: ApiException) {
-                fallo()
-
-            }
-        }
-    }*/
 
     private fun yaRegistrado(email: String?, proveedor: tipoProveedor) {
 
