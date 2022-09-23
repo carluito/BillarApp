@@ -1,19 +1,24 @@
 package com.billarapp.registroDatos
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.billarapp.MainActivity
 import com.billarapp.R
 import com.billarapp.Usuario
 import com.billarapp.databinding.ActivityUneteRegistroBinding
 import com.google.android.gms.auth.api.signin.GoogleSignIn
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount
+import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
@@ -21,22 +26,19 @@ import com.google.firebase.firestore.FirebaseFirestore
 @Suppress("DEPRECATION")
 class UneteRegistro : AppCompatActivity() {
 
-    private val GOOGLESIGNIN = 100
+
     private lateinit var intentUnete: Intent
     private lateinit var bindingUneteRegistro: ActivityUneteRegistroBinding
+    private lateinit var auth : FirebaseAuth
+    private lateinit var googleSignInClient: GoogleSignInClient
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingUneteRegistro = ActivityUneteRegistroBinding.inflate(layoutInflater)
         setContentView(bindingUneteRegistro.root)
 
-
-
-
         registro()
         sesion()
-
-
 
 
         bindingUneteRegistro.btnVolverRegistro.setOnClickListener {
@@ -118,22 +120,76 @@ class UneteRegistro : AppCompatActivity() {
             }/*else{
                 Toast.makeText(this,"Me cago en dios pon santo y seña",Toast.LENGTH_SHORT).show()}*/
         }
+
+        configuracionGoogle()
+
         bindingUneteRegistro.btnGoogle.setOnClickListener {
 
-            //Configuración para entrar con cuenta google
+                signInGoogle()
 
-            val configuracionGoogle =
-                GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                    .requestIdToken(getString(R.string.default_web_client_id))
-                    .requestEmail()
-                    .build()
-
-            val clienteGoogle = GoogleSignIn.getClient(this, configuracionGoogle)
-            clienteGoogle.signOut()
-
-            startActivityForResult(clienteGoogle.signInIntent, GOOGLESIGNIN)
+            googleSignInClient.signOut()
 
         }
+
+
+
+    }
+    private fun configuracionGoogle(){
+        //Configuración para entrar con cuenta google
+        auth = FirebaseAuth.getInstance()
+        val configuracionGoogle =
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build()
+
+        googleSignInClient= GoogleSignIn.getClient(this, configuracionGoogle)
+
+    }
+    private fun signInGoogle(){
+
+        val singIntent = googleSignInClient.signInIntent
+        launcher.launch(singIntent)
+    }
+
+    private val launcher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
+        result ->
+
+        if(result.resultCode== Activity.RESULT_OK){
+
+
+            val task= GoogleSignIn.getSignedInAccountFromIntent(result.data)
+            handleResults(task)
+        }
+    }
+
+    private fun handleResults(task: Task<GoogleSignInAccount>) {
+
+        if (task.isSuccessful){
+                val cuenta: GoogleSignInAccount? =task.result
+            if (cuenta !=null) {
+
+                updateUI(cuenta)
+            }
+        }else{
+            Toast.makeText(this,task.exception.toString(), Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun updateUI(cuenta: GoogleSignInAccount) {
+
+        val credencial = GoogleAuthProvider.getCredential(cuenta.idToken, null)
+        auth.signInWithCredential(credencial)
+            .addOnCompleteListener {
+
+                if (it.isSuccessful) {
+                    cuenta.toString()
+                    yaRegistrado(cuenta.email ?: "", tipoProveedor.GOOGLE)
+                } else {
+                    fallo()
+                }
+            }
+
     }
 
     private fun fallo() {
@@ -160,7 +216,7 @@ class UneteRegistro : AppCompatActivity() {
     }
 
 
-    @Deprecated("Deprecated in Java")
+   /* @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -189,7 +245,7 @@ class UneteRegistro : AppCompatActivity() {
 
             }
         }
-    }
+    }*/
 
     private fun yaRegistrado(email: String?, proveedor: tipoProveedor) {
 
