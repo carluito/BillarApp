@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@android:style/Widget.Material.Spinner.Underlined"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/tapete3"
+    tools:context=".registroDatos.DatosJugador">
+
+    <TextView
+        android:id="@+id/tvEmailDatos"
+        android:layout_width="210dp"
+        android:layout_height="42dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/email"
+        android:textColor="#263238"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/etJugador"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.422"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.406" />
+
+    <TextView
+        android:id="@+id/tvProveedorDatos"
+        android:layout_width="210dp"
+        android:layout_height="42dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/proveedor"
+        android:textColor="#263238"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/etJugador"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.422"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.875" />
+
+    <TextView
+        android:id="@+id/tvProvincia"
+        android:layout_width="168dp"
+        android:layout_height="33dp"
+        android:text="@string/provincia"
+        android:textColor="#263238"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.293" />
+
+    <Spinner
+        android:id="@+id/spProvincia"
+        style="@android:style/Widget.Material.Light.Spinner.Underlined"
+        android:layout_width="212dp"
+        android:layout_height="48dp"
+        android:clickable="true"
+        android:contentDescription="@string/provincias"
+        android:popupBackground="@color/DarkSeaGreen"
+        app:barrierAllowsGoneWidgets="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.348" />
+
+    <Button
+        android:id="@+id/btnGuardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/guardar"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.865"
+        tools:ignore="TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/etJugador"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:backgroundTint="@android:color/holo_green_light"
+        android:ems="10"
+        android:hint="@string/nombre"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColorHint="#263238"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.422"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.213" />
+
+    <Spinner
+        android:id="@+id/spNivel"
+        style="@android:style/Widget.Material.Light.Spinner.Underlined"
+        android:layout_width="212dp"
+        android:layout_height="48dp"
+        android:clickable="true"
+        android:contentDescription="@string/nivel"
+        android:popupBackground="@color/DarkSeaGreen"
+        app:barrierAllowsGoneWidgets="true"
+        app:layout_constraintBottom_toTopOf="@+id/tvDisponibilidad"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.979" />
+
+    <Button
+        android:id="@+id/btnVolverUnete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/Brown"
+        android:text="@string/volver"
+        android:textSize="34sp"
+        app:cornerRadius="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.879"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnGuardar"
+        app:layout_constraintVertical_bias="0.529" />
+
+    <TextView
+        android:id="@+id/tvNivel"
+        android:layout_width="168dp"
+        android:layout_height="33dp"
+        android:text="@string/selecciona_tu_nivel"
+        android:textColor="#263238"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/spNivel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.977" />
+
+    <TextView
+        android:id="@+id/tvDisponibilidad"
+        android:layout_width="168dp"
+        android:layout_height="33dp"
+        android:text="@string/disponibilidad"
+        android:textColor="#263238"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.349"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.696" />
+
+    <Spinner
+        android:id="@+id/spDisponibilidad"
+        style="@android:style/Widget.Material.Light.Spinner.Underlined"
+        android:layout_width="347dp"
+        android:layout_height="48dp"
+        android:clickable="true"
+        android:contentDescription="@string/disponible"
+        android:popupBackground="@color/DarkSeaGreen"
+        app:barrierAllowsGoneWidgets="true"
+        app:layout_constraintBottom_toTopOf="@+id/btnGuardar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.965" />
+
+    <EditText
+        android:id="@+id/etLocalidad"
+        android:layout_width="210dp"
+        android:layout_height="48dp"
+        android:layout_marginBottom="32dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:hint="@string/localidad"
+        android:textAlignment="viewStart"
+        android:textColor="#263238"
+        app:layout_constraintBottom_toTopOf="@+id/tvNivel"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.422"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spProvincia"
+        app:layout_constraintVertical_bias="1.0"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

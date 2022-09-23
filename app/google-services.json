@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "732197978773",
+    "project_id": "billarapp-15e32",
+    "storage_bucket": "billarapp-15e32.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:732197978773:android:b6e05bc2328f5c212e519c",
+        "android_client_info": {
+          "package_name": "com.billarapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "732197978773-f7liqpdq4hg4fenid1eb7jsph9qef66s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDljQz2PjLGvMhjDJ7X18bMUIO8aRddJxk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "732197978773-f7liqpdq4hg4fenid1eb7jsph9qef66s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

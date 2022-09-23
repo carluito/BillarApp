@@ -1,0 +1,88 @@
+<resources>
+    <string name="app_name">BillarApp</string>
+    <string name="prefs">Preferencias</string>
+
+
+    <string name="bola2">bola2</string>
+    <string name="volver">Volver</string>
+    <string name="billarapplication">spNivel</string>
+    <string name="seleccion">Nivel seleccionado:</string>
+    <!--String para saber nivel de jugador al registrarse-->
+    <string name="nivel">Nivel</string>
+    <string name="guardar">Guardar</string>
+    <string name="localidad">Localidad</string>
+    <string name="Unetenos">Únetenos</string>
+    <string name="nombre">Nombre</string>
+    <string name="selecciona_tu_nivel">Cúal es tu nivel</string>
+    <string name="info">Info</string>
+    <string name="mesas">Mesas</string>
+    <string name="mi_cuenta">Mi Cuenta</string>
+    <string name="unete">Únete</string>
+    <string name="logo">logo</string>
+    <string name="email">Email</string>
+    <string name="contrasena">Contraseña</string>
+    <string name="entrar">Entrar</string>
+    <string name="disponibilidad">Disponibilidad</string>
+    <string name="disponible">Disponible</string>
+    <string name="carlos">Carlos Villar García</string>
+    <string name="pueblo">pueblo</string>
+    <string name="provincia">Provincia</string>
+    <string name="provincias">provincias</string>
+    <string name="buscar">Buscar</string>
+    <string name="imagenlocal">imagenLocal</string>
+    <string name="proveedor">Proveedor</string>
+    <string name="cerrar_sesion">Cerrar Sesión</string>
+    <string name="ver_partidas">Ver Partidas</string>
+    <string name="acceder">Acceder</string>
+    <string name="calle">Calle:</string>
+    <string name="local">Local:</string>
+    <string name="provinciadospuntos">Provincia:</string>
+    <string name="en">En:</string>
+    <string name="google">Google</string>
+    <string name="cambiar">Cambiar</string>
+    <string name="datos_guardados">Datos Guardados</string>
+    <string name="cambio">Cambio</string>
+    <string name="cambiar_datos">Cambiar Datos</string>
+    <string name="buscar_mesa">Buscar Mesa</string>
+    <string name="escribe_los_nuevos_datos">Escribe los nuevos datos</string>
+    <string name="proveedorusuario">proveedorUsuario</string>
+    <string name="editar_info_jugador">Editar Info Jugador</string>
+    <string name="crear_partida">Crear Partida</string>
+    <string name="cerrar_sesi_n">Cerrar Sesión</string>
+    <string name="emailusuario">emailUsuario</string>
+    <string-array name="nivel">
+        <item />
+        <item>Aprendiendo</item>
+        <item>Pierdo siempre</item>
+        <item>Ya gano alguna</item>
+        <item>Gano bastantes</item>
+        <item>Compito y todo</item>
+    </string-array>
+
+    <string-array name="disponibilidad">
+        <item />
+        <item>Casi siempre</item>
+        <item>Por semana por las tardes</item>
+        <item>Por semana por las mañanas</item>
+        <item>Fines de semana</item>
+        <item>A veces</item>
+    </string-array>
+
+    <string-array name="Provincia">
+        <item>Todas</item>
+        <item>A Coruña</item>
+        <item>Lugo</item>
+        <item>Ourense</item>
+        <item>Pontevedra</item>
+    </string-array>
+
+    <string-array name="provinciaDJ">
+        <item />
+        <item>A Coruña</item>
+        <item>Lugo</item>
+        <item>Ourense</item>
+        <item>Pontevedra</item>
+    </string-array>
+
+
+</resources>
