@@ -3,7 +3,6 @@ package com.billarapp
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.billarapp.databinding.ActivityUsuarioBinding
 import com.billarapp.registroDatos.EditarUsuario
@@ -27,6 +26,7 @@ class Usuario : Activity() {
 
         sesion(email,proveedor)
         editar(email?:"email",proveedor?:"proveedor")
+        crearPartida()
         cerrarSesion()
 
         bindingUsuario.btnVolverUsuario.setOnClickListener {
@@ -85,5 +85,15 @@ class Usuario : Activity() {
        preferencias.putString("proveedor",proveedor)
        preferencias.apply()
 
+    }
+
+    private fun crearPartida(){
+
+        bindingUsuario.btnCrearPartida.setOnClickListener(){
+
+            intentUsuario=Intent(this,CrearPartida::class.java)
+            startActivity(intentUsuario)
+
+        }
     }
 }

@@ -50,6 +50,10 @@
     <string name="crear_partida">Crear Partida</string>
     <string name="cerrar_sesi_n">Cerrar Sesión</string>
     <string name="emailusuario">emailUsuario</string>
+    <string name="provinciaCrear">Provincia:</string>
+    <string name="localidadCrear">Localidad:</string>
+    <string name="fechaCrear">Fecha:</string>
+    <string name="horaCrear">Hora:</string>
     <string-array name="nivel">
         <item />
         <item>Aprendiendo</item>
