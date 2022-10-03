@@ -54,6 +54,8 @@
     <string name="localidadCrear">Localidad:</string>
     <string name="fechaCrear">Fecha:</string>
     <string name="horaCrear">Hora:</string>
+    <string name="borrar_cuenta">Borrar Cuenta</string>
+    <string name="flechita">flechita</string>
     <string-array name="nivel">
         <item />
         <item>Aprendiendo</item>

@@ -7,24 +7,24 @@ android:layout_height="match_parent"
 android:background="@drawable/tapeteeditar"
 tools:context=".registroDatos.EditarUsuario">
 
-<Button
-    android:id="@+id/btnVolverEditar"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:backgroundTint="@color/Brown"
-    android:text="@string/volver"
-    android:textColor="#9FA8DA"
-    android:textSize="34sp"
-    app:cornerRadius="28dp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintHorizontal_bias="0.793"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    app:layout_constraintVertical_bias="0.92"
-    tools:ignore="TextContrastCheck" />
+    <Button
+        android:id="@+id/btnVolverEditar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/Brown"
+        android:text="@string/volver"
+        android:textColor="#9FA8DA"
+        android:textSize="14sp"
+        app:cornerRadius="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.957"
+        tools:ignore="TextContrastCheck" />
 
-<TextView
+    <TextView
     android:id="@+id/tx5"
     android:layout_width="135dp"
     android:layout_height="60dp"
@@ -81,6 +81,7 @@ tools:context=".registroDatos.EditarUsuario">
     android:layout_width="102dp"
     android:layout_height="99dp"
     android:text="@string/cambiar"
+    android:background="@color/DarkRed"
     app:layout_constraintBottom_toBottomOf="parent"
     app:layout_constraintEnd_toEndOf="parent"
     app:layout_constraintHorizontal_bias="0.498"
@@ -122,7 +123,7 @@ tools:context=".registroDatos.EditarUsuario">
     android:autofillHints=""
     android:ems="10"
     android:hint="@string/localidad"
-    android:inputType="textAutoComplete"
+    android:inputType="textCapSentences"
     android:textAlignment="center"
     android:textColor="@color/White"
     android:textSize="14sp"
@@ -234,7 +235,7 @@ tools:context=".registroDatos.EditarUsuario">
     android:autofillHints=""
     android:ems="10"
     android:hint="@string/nombre"
-    android:inputType="textAutoComplete"
+    android:inputType="textCapSentences"
     android:textAlignment="center"
     android:textColor="@color/White"
     android:textSize="14sp"
@@ -291,26 +292,41 @@ tools:context=".registroDatos.EditarUsuario">
         android:id="@+id/imageView2"
         android:layout_width="53dp"
         android:layout_height="72dp"
-        android:contentDescription="flechita"
+        android:contentDescription="@string/flechita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.198"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.171"
-        app:srcCompat="@drawable/triangolocortado" />
+        app:srcCompat="@drawable/triangolocortado"
+        tools:ignore="ImageContrastCheck" />
 
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="53dp"
         android:layout_height="72dp"
-        android:contentDescription="flechita"
+        android:contentDescription="@string/flechita"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.824"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.171"
-        app:srcCompat="@drawable/triangolocortado" />
+        app:srcCompat="@drawable/triangolocortado"
+        tools:ignore="ImageContrastCheck" />
+
+    <Button
+        android:id="@+id/btnBorrarUsuario"
+        android:layout_width="74dp"
+        android:layout_height="49dp"
+        android:background="@color/DarkRed"
+        android:text="@string/borrar_cuenta"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.183"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.958" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

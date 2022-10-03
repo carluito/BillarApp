@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tapeteazul"
+    android:background="@drawable/tapete_verde"
     tools:context=".Usuario">
 
     <TextView
@@ -52,7 +52,7 @@
         android:backgroundTint="@color/Brown"
         android:text="@string/volver"
         android:textColor="#9FA8DA"
-        android:textSize="34sp"
+        android:textSize="14sp"
         app:cornerRadius="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

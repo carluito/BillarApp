@@ -17,7 +17,9 @@
         tools:targetApi="31">
         <activity
             android:name=".CrearPartida"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".Usuario"
             android:exported="false"
@@ -32,7 +34,8 @@
             android:name=".registroDatos.EditarUsuario"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"
+            android:windowSoftInputMode="adjustPan" /><!--Para q no cambie la pantalla-->
         <activity
             android:name=".registroDatos.UneteRegistro"
             android:exported="false"

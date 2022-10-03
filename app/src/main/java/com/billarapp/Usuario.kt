@@ -35,6 +35,12 @@ class Usuario : Activity() {
         }
     }
 
+    override fun onBackPressed() {                              //Sobreescribimos el método onBackPressed para q al pulsar el boton retroceso vuelva a MainActivity
+        super.onBackPressed()
+        intentUsuario= Intent(this,MainActivity::class.java)
+        startActivity((intentUsuario))
+    }
+
     private fun cerrarSesion() {
 
         bindingUsuario.btnCerrarSesion.setOnClickListener {

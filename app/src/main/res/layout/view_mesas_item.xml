@@ -5,7 +5,7 @@
     android:id="@+id/pooltables"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/buscar_mesa2"
+    android:background="@drawable/mesa_item"
     android:maxHeight="300dp">
 
     <TextView

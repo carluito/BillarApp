@@ -9,7 +9,7 @@ import com.billarapp.mesasBillar.Mesa
 class MesasAdapter(private val mesasBillarlista: ArrayList<Mesa>/*, private val mesaClickedListener: MesaClickedListener*/)     //crea objetos ViewHolder para las vistas y establece los datos para cada una
     : RecyclerView.Adapter<MesasHolder>() {
     //Métodos del adapter para vincular los datos a las vistas
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MesasHolder {    //Crea un viewHolder nuevo y una vista asociada inicilizandola pero sin dartos
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MesasHolder {    //Crea un viewHolder nuevo y una vista asociada inicilizandola pero sin datos
         val binding = ViewMesasItemBinding.inflate(
             LayoutInflater.from(parent.context), parent, false
         )

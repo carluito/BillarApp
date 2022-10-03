@@ -20,7 +20,7 @@ class MesasHolder(private val binding: ViewMesasItemBinding) : RecyclerView.View
         binding.txDireccion.text = mesa.Calle
 
 
-    } private fun mostrarUrl(Foto: String) {                        //Metrodo para poner la url en el recyclerView
+    } private fun mostrarUrl(Foto: String) {                        //Metodo para poner la url en el recyclerView
 
         val imageView = binding.ivLocal                       //Declaración del imageView
 
