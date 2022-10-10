@@ -2,7 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/pooltables"
+    android:id="@+id/mesasPartidas"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/mesa_item"
@@ -17,7 +17,7 @@
         android:text="@string/local"
         android:textColor="@color/SaddleBrown"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@id/ivLocal"
+        app:layout_constraintStart_toEndOf="@id/ivSitio"
         app:layout_constraintTop_toTopOf="parent"
         tools:ignore="TextContrastCheck" />
 
@@ -30,8 +30,8 @@
         android:text="@string/en"
         android:textColor="@color/SaddleBrown"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/ivLocal"
-        app:layout_constraintStart_toEndOf="@id/ivLocal"
+        app:layout_constraintBottom_toBottomOf="@+id/ivSitio"
+        app:layout_constraintStart_toEndOf="@id/ivSitio"
         tools:ignore="TextContrastCheck" />
 
     <TextView
@@ -42,7 +42,7 @@
         android:text="@string/calle"
         android:textColor="@color/SaddleBrown"
         android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@id/ivLocal"
+        app:layout_constraintStart_toEndOf="@id/ivSitio"
         app:layout_constraintTop_toBottomOf="@id/txLocalidad" />
 
     <TextView
@@ -58,7 +58,7 @@
         tools:ignore="TextContrastCheck" />
 
     <ImageView
-        android:id="@+id/ivLocal"
+        android:id="@+id/ivSitio"
         android:layout_width="163dp"
         android:layout_height="172dp"
         android:layout_marginStart="24dp"

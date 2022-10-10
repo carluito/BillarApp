@@ -1,4 +1,4 @@
-package com.billarapp
+package com.billarapp.partida
 
 import android.app.Dialog
 import android.app.TimePickerDialog

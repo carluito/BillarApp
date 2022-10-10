@@ -46,12 +46,7 @@ class DatosJugador : AppCompatActivity() {
 
         guardar(email?:"", proveedor ?:"")
 
-        bindingUnete.btnVolverUnete.setOnClickListener {
 
-            val intentDatos = Intent(this, MainActivity::class.java)
-            startActivity(intentDatos)
-
-        }
     }
 
 

@@ -1,4 +1,4 @@
-package com.billarapp
+package com.billarapp.partida
 
 import android.app.DatePickerDialog
 import android.app.Dialog
@@ -25,8 +25,8 @@ class PonerFechaFragment(val listener : (dia:Int, mes:Int, anho:Int) -> Unit):  
 
     }
 
-    override fun onDateSet(p0: DatePicker?, anho: Int, mes: Int, dia: Int) {
-        listener(dia, mes, anho)
+    override fun onDateSet(p0: DatePicker?, anho: Int, mes: Int, dia: Int) {                                //+1 Porque enero empieza en 0
+        listener(dia, (mes+1), anho)
     }
 
 

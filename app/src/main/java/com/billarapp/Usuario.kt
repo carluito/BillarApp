@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.billarapp.partida.CrearPartida
 import com.billarapp.databinding.ActivityUsuarioBinding
 import com.billarapp.registroDatos.EditarUsuario
 import com.google.firebase.auth.FirebaseAuth
@@ -29,10 +30,7 @@ class Usuario : Activity() {
         crearPartida()
         cerrarSesion()
 
-        bindingUsuario.btnVolverUsuario.setOnClickListener {
-            intentUsuario = Intent(this, MainActivity::class.java)
-            startActivity(intentUsuario)
-        }
+
     }
 
     override fun onBackPressed() {                              //Sobreescribimos el método onBackPressed para q al pulsar el boton retroceso vuelva a MainActivity
@@ -97,7 +95,7 @@ class Usuario : Activity() {
 
         bindingUsuario.btnCrearPartida.setOnClickListener(){
 
-            intentUsuario=Intent(this,CrearPartida::class.java)
+            intentUsuario=Intent(this, CrearPartida::class.java)
             startActivity(intentUsuario)
 
         }

@@ -4,72 +4,57 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tapeteamarillo"
-    tools:context=".CrearPartida">
+    android:background="@drawable/tapeteazul"
+    tools:context=".partida.CrearPartida">
 
-    <Button
-        android:id="@+id/btnVolverCrear"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/tvTituloPartida"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/Brown"
-        android:text="@string/volver"
-        android:textColor="#9FA8DA"
-        android:textSize="14sp"
-        app:cornerRadius="28dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="@string/crear_partida"
+        android:textColor="@color/AntiqueWhite"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.793"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.92"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintVertical_bias="0.001" />
 
     <Spinner
-        android:id="@+id/spLocalCrear"
-        style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
-        android:layout_width="158dp"
+        android:id="@+id/spProvinciaPartidas"
+        style="@android:style/Widget.Spinner.DropDown"
+        android:layout_width="267dp"
         android:layout_height="48dp"
-        android:gravity="center|center_horizontal"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:contentDescription="@string/provincias"
+        android:popupBackground="@color/Gray"
+        app:barrierAllowsGoneWidgets="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.373"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintVertical_bias="0.156" />
 
     <Spinner
         android:id="@+id/spLocalidadCrear"
-        style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
-        android:layout_width="158dp"
+        style="@android:style/Widget.Spinner.DropDown"
+        android:layout_width="267dp"
         android:layout_height="48dp"
-        android:gravity="center|center_horizontal"
+        android:layout_weight="1"
+        android:clickable="true"
+        android:contentDescription="@string/provincias"
+        android:popupBackground="@color/Gray"
+        app:barrierAllowsGoneWidgets="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.161"
-        tools:ignore="SpeakableTextPresentCheck" />
-
-    <EditText
-        android:id="@+id/etHora"
-        android:layout_width="157dp"
-        android:layout_height="48dp"
-        android:clickable="false"
-        android:ems="10"
-        android:focusable="false"
-        android:gravity="center_horizontal|center_vertical"
-        android:importantForAutofill="no"
-        android:inputType="time"
-        android:textColor="@color/White"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.303"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintVertical_bias="0.225" />
 
     <EditText
         android:id="@+id/etFecha"
@@ -84,10 +69,10 @@
         android:textColor="@color/White"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.842"
+        app:layout_constraintHorizontal_bias="0.185"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.232"
+        app:layout_constraintVertical_bias="0.086"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
@@ -95,39 +80,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/provinciaCrear"
-        android:textColor="@color/Black"
+        android:textColor="@color/AntiqueWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintHorizontal_bias="0.134"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.101" />
-
-    <TextView
-        android:id="@+id/txLocalidaPartida"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/localidadCrear"
-        android:textColor="@color/Black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.201"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.169" />
-
-    <TextView
-        android:id="@+id/tvFecha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/fechaCrear"
-        android:textColor="@color/Black"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.189"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.235" />
+        app:layout_constraintVertical_bias="0.168" />
 
     <TextView
         android:id="@+id/tvHora"
@@ -135,40 +94,80 @@
         android:layout_height="wrap_content"
         android:text="@string/horaCrear"
         android:textAlignment="textEnd"
-        android:textColor="@color/Black"
+        android:textColor="@color/AntiqueWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.185"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/etFecha"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.105" />
+
+    <EditText
+        android:id="@+id/etHora"
+        android:layout_width="157dp"
+        android:layout_height="48dp"
+        android:clickable="false"
+        android:ems="10"
+        android:focusable="false"
+        android:gravity="center_horizontal|center_vertical"
+        android:importantForAutofill="no"
+        android:inputType="time"
+        android:textColor="@color/White"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.937"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.308" />
+        app:layout_constraintVertical_bias="0.086"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <TextView
-        android:id="@+id/tvLocalPartidas"
+        android:id="@+id/txLocalidaPartida"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/local"
-        android:textAlignment="textEnd"
-        android:textColor="@color/Black"
+        android:text="@string/localidadCrear"
+        android:textColor="@color/AntiqueWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.187"
+        app:layout_constraintHorizontal_bias="0.135"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintVertical_bias="0.235" />
 
-    <Spinner
-        android:id="@+id/spProvinciaPartidas"
-        style="@style/Widget.AppCompat.Light.Spinner.DropDown.ActionBar"
-        android:layout_width="158dp"
-        android:layout_height="48dp"
-        android:gravity="center|center_horizontal"
+    <TextView
+        android:id="@+id/tvFecha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fechaCrear"
+        android:textColor="@color/AntiqueWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.845"
+        app:layout_constraintHorizontal_bias="0.016"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.09"
-        tools:ignore="SpeakableTextPresentCheck" />
+        app:layout_constraintVertical_bias="0.105" />
+
+
+    <Button
+        android:id="@+id/btnBucarPartida"
+        android:layout_width="409dp"
+        android:layout_height="36dp"
+        android:text="@string/buscar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTituloPartida"
+        app:layout_constraintVertical_bias="0.289" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvPartida"
+        android:layout_width="409dp"
+        android:layout_height="498dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

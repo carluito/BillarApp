@@ -1,7 +1,7 @@
 package com.billarapp.mesasBillar
 
 
-import android.annotation.SuppressLint
+
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
@@ -9,7 +9,6 @@ import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
-import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.billarapp.MainActivity
 import com.billarapp.databinding.ActivityBuscarMesaBinding
@@ -35,15 +34,12 @@ class BuscarMesa : Activity() { //La clase Activity se encarga de crear una vent
 
         cargarMesas()
 
-       // todasMesas()
-
         spinnerProvincias()
-
 
         bindingBuscarMesa.btnBuscarMesa.setOnClickListener {
 
             if(provinciaSeleccion=="Todas"){                                                // Para cuando selecciones todas salgan todas las mesas y si no x provincia
-                //bindingBuscarMesa.spLocalidadBuscar.setSelection(0)
+
                 todasMesas()
 
             }else{
@@ -59,13 +55,22 @@ class BuscarMesa : Activity() { //La clase Activity se encarga de crear una vent
 
 
 
-
-        bindingBuscarMesa.btnVolverBuscar.setOnClickListener {
-            intentBuscar= Intent(this, MainActivity::class.java)
-            startActivity(intentBuscar)
-        }
-
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private fun cargarMesas(){
 
@@ -85,6 +90,13 @@ class BuscarMesa : Activity() { //La clase Activity se encarga de crear una vent
 
 
     }
+
+
+
+
+
+
+
 
     private fun mesaXLocalidad(){
         db=FirebaseFirestore.getInstance()
@@ -108,6 +120,11 @@ class BuscarMesa : Activity() { //La clase Activity se encarga de crear una vent
             }
         })
     }
+
+
+
+
+
 
     private fun mesaXProvincia() {                                            //Método para ver las mesas pasandole el valorProvincia para q escoja x provincias
 

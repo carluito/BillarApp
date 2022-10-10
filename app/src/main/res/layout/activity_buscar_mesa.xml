@@ -7,22 +7,6 @@
     android:background="@drawable/tapeteazul"
     tools:context=".mesasBillar.BuscarMesa">
 
-    <Button
-        android:id="@+id/btnVolverBuscar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:backgroundTint="@color/Brown"
-        android:text="@string/volver"
-        android:textSize="14sp"
-        app:cornerRadius="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.95"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.984" />
-
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="410dp"
@@ -41,7 +25,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal|center_vertical"
             android:text="@string/buscar_mesa"
-            android:textColor="@color/NavajoWhite"
+            android:textColor="@color/AntiqueWhite"
             android:textSize="24sp" />
 
         <TextView
@@ -50,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/provincia"
-            android:textColor="@color/Black"
+            android:textColor="@color/WhiteSmoke"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -82,7 +66,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/localidad"
-            android:textColor="@color/Black"
+            android:textColor="@color/WhiteSmoke"
             android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -133,7 +117,9 @@
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

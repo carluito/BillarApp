@@ -40,6 +40,12 @@ class UneteRegistro : AppCompatActivity() {
         registro()
         sesion()
 
+        volverse()
+    }
+
+
+
+    private fun volverse() {
 
         bindingUneteRegistro.btnVolverRegistro.setOnClickListener {
             intentUnete = Intent(this, MainActivity::class.java)
@@ -47,9 +53,6 @@ class UneteRegistro : AppCompatActivity() {
 
         }
     }
-
-
-
 
 
     private fun sesion() {                                                           //Metodo para guardar el usuario y la contraseña para no tener q meterla hasta q cierre sesión
@@ -60,7 +63,7 @@ class UneteRegistro : AppCompatActivity() {
 
         if (email != null && proveedor != null) {
 
-            /*aCompletarFicha(email, tipoProveedor.valueOf(proveedor)) //Para completaR Los datos del jugador y hacer la base de datos de jugadores*/
+
 
             intentUnete = Intent(this, Usuario::class.java).apply {
 
@@ -92,7 +95,7 @@ class UneteRegistro : AppCompatActivity() {
                             aCompletarFicha(
                                 it.result?.user?.email ?: "",
                                 tipoProveedor.EMAIL)              //Enviamos el email y el tipo de proveedor a completar los datos
-                            // println(it.result?.user?.email?:"")
+
                         } else {
                             fallo()
                         }
@@ -103,7 +106,7 @@ class UneteRegistro : AppCompatActivity() {
             }
         }
 
-        bindingUneteRegistro.btnAcceso.setOnClickListener {                  //Lo tengo asi para acceder desde el  mi cuenta, un lio,pero creo q ya bien
+        bindingUneteRegistro.btnAcceso.setOnClickListener {                  //Para acceder si ya está registrado
             if (email.text.isNotEmpty() && senha.text.isNotEmpty()) {
 
 
@@ -111,7 +114,7 @@ class UneteRegistro : AppCompatActivity() {
                     .signInWithEmailAndPassword(email.text.toString(), senha.text.toString())
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
-                            yaRegistrado(it.result?.user?.email ?: "",tipoProveedor.EMAIL)//TODO
+                            yaRegistrado(it.result?.user?.email ?: "",tipoProveedor.EMAIL)
                         } else {
                             fallo()
                         }

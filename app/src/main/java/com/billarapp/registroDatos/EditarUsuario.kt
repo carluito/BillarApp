@@ -1,11 +1,15 @@
 package com.billarapp.registroDatos
 
+
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
+import com.billarapp.MainActivity
 import com.billarapp.R
 import com.billarapp.Usuario
 import com.billarapp.databinding.ActivityEditarUsuarioBinding
@@ -38,8 +42,13 @@ class EditarUsuario : AppCompatActivity() {
 
         }
 
-        volverse()
 
+
+        bindingEditar.btnBorrarUsuario.setOnClickListener(){
+
+            borrarCuenta(email)
+
+        }
     }
 
 
@@ -182,13 +191,27 @@ class EditarUsuario : AppCompatActivity() {
 
 
 
-    private fun volverse(){
 
-        bindingEditar.btnVolverEditar.setOnClickListener {
 
-            intentEditar = Intent(this, Usuario::class.java)
-            startActivity(intentEditar)
+    private fun borrarCuenta(email: String?){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Borrar Cuenta")
+        builder.setMessage("Se borrarán todos los datos")
+        builder.setPositiveButton("Cancelar"){ _, _ ->
+            Toast.makeText(this,
+                "Que susto¡¡¡, gracias", Toast.LENGTH_SHORT).show()
         }
+        builder.setNegativeButton("Aceptar"){ _, _ ->
+            Toast.makeText(this,
+                "Vuelve Pronto, te echaré de menos", Toast.LENGTH_SHORT).show()
+            if (email != null) {                                                                        //Para borrar los datos de la cuenta
+                db.collection("Usuarios").document(email).delete()
+                intentEditar = Intent(this, MainActivity::class.java)
+                startActivity(intentEditar)
+            }
+        }
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
     }
 
 
