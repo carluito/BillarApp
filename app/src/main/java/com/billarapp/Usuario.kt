@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import com.billarapp.partida.CrearPartida
 import com.billarapp.databinding.ActivityUsuarioBinding
+import com.billarapp.registroDatos.CambioContrasena
 import com.billarapp.registroDatos.EditarUsuario
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -76,7 +77,7 @@ class Usuario : Activity() {
             intentUsuario= Intent(this, EditarUsuario::class.java).apply {
 
                 putExtra("email",email)
-                putExtra(proveedor, "proveedor")
+                putExtra("proveedor",proveedor )
             }
 
             startActivity(intentUsuario)
@@ -100,4 +101,7 @@ class Usuario : Activity() {
 
         }
     }
+
+
+
 }

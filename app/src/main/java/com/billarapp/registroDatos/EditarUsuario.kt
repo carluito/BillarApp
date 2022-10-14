@@ -9,9 +9,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.Fragment
 import com.billarapp.MainActivity
 import com.billarapp.R
-import com.billarapp.Usuario
 import com.billarapp.databinding.ActivityEditarUsuarioBinding
 import com.google.firebase.firestore.FirebaseFirestore
 
@@ -30,11 +30,18 @@ class EditarUsuario : AppCompatActivity() {
 
         val paqueteEdit :Bundle? = intent.extras
         val email :String? = paqueteEdit?.getString("email")
+        val proveedor:String?=paqueteEdit?.getString("proveedor")
+
+
+        if (proveedor!="EMAIL"){
+                        bindingEditar.btnCambioContrasena.visibility=View.GONE                                        //Oculta el boton al acceder medante google ya q la contraseña es la de la cuenta google
+                }
+
+
         pintaDatos(email)
         spProvincias()
         spDisponibilidad()
         spNivel()
-
 
         bindingEditar.btEditar.setOnClickListener{
 
@@ -43,14 +50,34 @@ class EditarUsuario : AppCompatActivity() {
         }
 
 
-
         bindingEditar.btnBorrarUsuario.setOnClickListener(){
 
             borrarCuenta(email)
 
         }
-    }
 
+        bindingEditar.btnCambioContrasena.setOnClickListener(){
+
+            val miFragmento= CambioContrasena()
+            val fragmento: Fragment?=
+                supportFragmentManager.findFragmentByTag(CambioContrasena::class.java.simpleName)
+
+            if (fragmento !is Fragment){
+
+                val miPaquete = Bundle()
+                miPaquete.putString("email",email)                          //Para enviar el email a los fragments de esta actividad
+                miFragmento.arguments=miPaquete
+
+                supportFragmentManager.beginTransaction()
+                    .add(R.id.mostrarFragments,miFragmento,CambioContrasena::class.java.simpleName)
+                    .addToBackStack(null)                                                           //Hace q cuando pulsamos atras desaparezca el fragmento
+                    .commit()
+            }
+           // bindingEditar.btnCambioContrasena.visibility=View.GONE                                        //Oculta el boton
+        }
+
+
+    }
 
 
 

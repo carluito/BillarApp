@@ -11,7 +11,7 @@ import java.util.concurrent.Executors
 
 class MesasHolder(private val binding: ViewMesasItemBinding) : RecyclerView.ViewHolder(binding.root) { //Para definir el objeto contendor de vistas q define cada elemento
 
-    fun bind(mesa: Mesa) {
+    fun bind(mesa: Mesa, onClickListener: (Mesa)->Unit) {
 
         mesa.Foto?.let { mostrarUrl(it) }                       //!!!no se si estara bien originalmente yo puse   mostrarUrl(mesa.Foto)
         binding.txSitio.text = mesa.Local
@@ -19,6 +19,9 @@ class MesasHolder(private val binding: ViewMesasItemBinding) : RecyclerView.View
         binding.txLocalidad.text = mesa.Localidad
         binding.txDireccion.text = mesa.Calle
 
+        itemView.setOnLongClickListener{onClickListener(mesa)
+        return@setOnLongClickListener true                              //setOnLongClickListener requiere devolver un valor booleano para notificar si se consumió el evento
+        }
 
     } private fun mostrarUrl(Foto: String) {                        //Metodo para poner la url en el recyclerView
 

@@ -77,23 +77,6 @@
         app:layout_constraintVertical_bias="0.478" />
 
     <Button
-        android:id="@+id/btnVolverRegistro"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:backgroundTint="@color/Brown"
-        android:text="@string/volver"
-        android:textColor="#9FA8DA"
-        android:textSize="34sp"
-        app:cornerRadius="28dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.793"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.92"
-        tools:ignore="TextContrastCheck" />
-
-    <Button
         android:id="@+id/btnGoogle"
         android:layout_width="160dp"
         android:layout_height="55dp"

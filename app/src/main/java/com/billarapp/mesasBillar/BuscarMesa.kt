@@ -3,16 +3,19 @@ package com.billarapp.mesasBillar
 
 
 import android.app.Activity
+import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.billarapp.MainActivity
 import com.billarapp.databinding.ActivityBuscarMesaBinding
 import com.billarapp.mesasBillar.adapterMesas.MesasAdapter
+import com.billarapp.mesasBillar.adapterMesas.MesasHolder
 import com.google.firebase.firestore.*
 import com.google.android.gms.tasks.OnCompleteListener
 
@@ -37,6 +40,8 @@ class BuscarMesa : Activity() { //La clase Activity se encarga de crear una vent
         spinnerProvincias()
 
         bindingBuscarMesa.btnBuscarMesa.setOnClickListener {
+
+            Toast.makeText(this,"Mantén pulsado en cada local para más información",Toast.LENGTH_SHORT).show()
 
             if(provinciaSeleccion=="Todas"){                                                // Para cuando selecciones todas salgan todas las mesas y si no x provincia
 
@@ -70,6 +75,19 @@ class BuscarMesa : Activity() { //La clase Activity se encarga de crear una vent
 
 
 
+    private fun onItemSelected(mesa:Mesa){                                                          //Para q al hacer long click vaya al navegador a buscarlo x nombre del local y localidad
+
+
+        intentBuscar = Intent(Intent.ACTION_WEB_SEARCH)
+        val busca= (mesa.Local+" "+mesa.Localidad)
+        intentBuscar.putExtra(SearchManager.QUERY, busca)
+        startActivity(intentBuscar)
+    }
+
+
+
+
+
 
 
     private fun cargarMesas(){
@@ -83,7 +101,7 @@ class BuscarMesa : Activity() { //La clase Activity se encarga de crear una vent
 
         mesasBillarlista = arrayListOf()
 
-        adaptadorRv =MesasAdapter(mesasBillarlista)                                             // Creamos el objeto de Nuestra clase MesasAdapter
+        adaptadorRv =MesasAdapter(mesasBillarlista) { mesa -> onItemSelected(mesa) }                                             // Creamos el objeto de Nuestra clase MesasAdapter
 
         bindingBuscarMesa.rvBuscarMesa.adapter = adaptadorRv
 

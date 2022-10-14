@@ -40,19 +40,10 @@ class UneteRegistro : AppCompatActivity() {
         registro()
         sesion()
 
-        volverse()
+
     }
 
 
-
-    private fun volverse() {
-
-        bindingUneteRegistro.btnVolverRegistro.setOnClickListener {
-            intentUnete = Intent(this, MainActivity::class.java)
-            startActivity(intentUnete)
-
-        }
-    }
 
 
     private fun sesion() {                                                           //Metodo para guardar el usuario y la contraseña para no tener q meterla hasta q cierre sesión
