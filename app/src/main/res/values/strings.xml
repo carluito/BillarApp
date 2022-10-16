@@ -95,6 +95,12 @@
     <string name="nueva_contrase_a">Nueva contraseña</string>
     <string name="cambiar_contrase_a">Cambiar contraseña</string>
     <string name="confirmar_contrase_a">Confirmar contraseña</string>
+    <string name="mis_partidas">Mis Partidas</string>
+    <string name="buscar_partida">Buscar Partida</string>
+    <string name="title_activity_partidas">Partidas</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="title_activity_ver_partidas">VerPartidas</string>
 
 
 </resources>

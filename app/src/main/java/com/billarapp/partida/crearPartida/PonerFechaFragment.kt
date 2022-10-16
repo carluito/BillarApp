@@ -1,4 +1,4 @@
-package com.billarapp.partida
+package com.billarapp.partida.crearPartida
 
 import android.app.DatePickerDialog
 import android.app.Dialog

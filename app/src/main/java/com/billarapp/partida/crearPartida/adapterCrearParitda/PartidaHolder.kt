@@ -1,4 +1,4 @@
-package com.billarapp.partida.adapterPartida
+package com.billarapp.partida.crearPartida.adapterCrearParitda
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory

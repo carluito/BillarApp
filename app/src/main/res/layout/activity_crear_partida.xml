@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/tapeteazul"
-    tools:context=".partida.CrearPartida">
+    tools:context=".partida.crearPartida.CrearPartida">
 
     <TextView
         android:id="@+id/tvTituloPartida"

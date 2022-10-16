@@ -1,4 +1,4 @@
-package com.billarapp.partida
+package com.billarapp.partida.crearPartida
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,15 +9,12 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.billarapp.Usuario
 import com.billarapp.databinding.ActivityCrearPartidaBinding
 import com.billarapp.mesasBillar.Mesa
-import com.billarapp.partida.adapterPartida.PartidaAdapter
-import com.billarapp.partida.adapterPartida.PartidaHolder
+import com.billarapp.partida.crearPartida.adapterCrearParitda.PartidaAdapter
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
-import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
 

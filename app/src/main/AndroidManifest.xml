@@ -16,13 +16,16 @@
         android:theme="@style/Theme.AppCompat.NoActionBar"
         tools:targetApi="31">
         <activity
-            android:name=".Partidas"
-            android:exported="false" />
+            android:name=".partida.verPartidas.VerPartidas"
+            android:exported="false"
+            android:label="@string/title_activity_ver_partidas"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
-            android:name=".partida.CrearPartida"
+            android:name=".partida.crearPartida.CrearPartida"
             android:exported="false"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity" />
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".Usuario"
             android:exported="false"
