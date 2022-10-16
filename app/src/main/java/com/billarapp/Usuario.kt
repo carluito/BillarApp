@@ -24,11 +24,11 @@ class Usuario : Activity() {
 
         val email = traeEmail()
         val proveedor = traerProveedor()
-
+        val nivel=traerNivel()
 
         sesion(email,proveedor)
         editar(email?:"email",proveedor?:"proveedor")
-        crearPartida()
+        crearPartida(email,proveedor)
         cerrarSesion()
 
         bindingUsuario.btnVerPartidas.setOnClickListener(){
@@ -56,6 +56,14 @@ class Usuario : Activity() {
             startActivity(intentUsuario)
 
         }
+    }
+
+
+    private fun traerNivel(): String? {
+        val paqueteUnete:Bundle? = intent.extras
+        val nivel: String? = paqueteUnete?.getString("nivel")
+        return nivel
+
     }
     private fun traeEmail(): String? {
 
@@ -95,16 +103,16 @@ class Usuario : Activity() {
 
     }
 
-    private fun crearPartida(){
+    private fun crearPartida(email:String?,proveedor: String?){
 
         bindingUsuario.btnCrearPartida.setOnClickListener(){
 
-            intentUsuario=Intent(this, CrearPartida::class.java)
+            intentUsuario=Intent(this, CrearPartida::class.java).apply {
+                putExtra("email",email)
+                putExtra("proveedor",proveedor)
+            }
             startActivity(intentUsuario)
 
         }
     }
-
-
-
 }

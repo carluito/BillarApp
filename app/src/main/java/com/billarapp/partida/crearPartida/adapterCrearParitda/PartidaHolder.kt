@@ -13,34 +13,18 @@ import java.util.concurrent.Executors
 
 class PartidaHolder(private val binding: ViewMesasItemPartidaBinding) : RecyclerView.ViewHolder(binding.root) { //Para definir el objeto contendor de vistas q define cada elemento
 
-    fun bind(mesa: Mesa) {
+    fun bind(mesa: Mesa, partidaClickListener: (Mesa) -> Unit) {
 
         mesa.Foto?.let { mostrarUrl(it) }                       //!!!no se si estara bien originalmente yo puse   mostrarUrl(mesa.Foto)
         binding.txSitio.text = mesa.Local
         binding.txDireccion.text = mesa.Calle
 
 
-        itemView.setOnClickListener() {                           // Para q al clickar en un item del recyclerview seleccione ese local para la partida
-
-            val builder = AlertDialog.Builder(binding.ivSitio.context)
-            builder.setTitle("Partida")
-            builder.setMessage("Lugar escogido: " + mesa.Local)
-            builder.setPositiveButton("Cancelar",null)
-            builder.setNegativeButton("Aceptar") { _, _ ->
-                Toast.makeText(
-                    binding.ivSitio.context,
-                    "Partida Publicada", Toast.LENGTH_SHORT
-                ).show()
-
-            }
-
-        val dialog: AlertDialog = builder.create()
-        dialog.show()
-
+        itemView.setOnClickListener { partidaClickListener(mesa)                      // Para q al clickar en un item del recyclerview seleccione ese local para la partida
+                return@setOnClickListener
         }
+
     }
-
-
 private fun mostrarUrl(Foto: String) {                        //Metodo para poner la url en el recyclerView
 
         val imageView = binding.ivSitio                     //Declaración del imageView

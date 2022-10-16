@@ -12,10 +12,8 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.billarapp.MainActivity
 import com.billarapp.databinding.ActivityBuscarMesaBinding
 import com.billarapp.mesasBillar.adapterMesas.MesasAdapter
-import com.billarapp.mesasBillar.adapterMesas.MesasHolder
 import com.google.firebase.firestore.*
 import com.google.android.gms.tasks.OnCompleteListener
 

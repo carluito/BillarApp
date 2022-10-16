@@ -11,6 +11,7 @@ import com.billarapp.MainActivity
 import com.billarapp.R
 import com.billarapp.Usuario
 import com.billarapp.databinding.ActivityDatosJugadorBinding
+import com.billarapp.partida.crearPartida.CrearPartida
 import com.google.firebase.firestore.FirebaseFirestore
 
 enum class tipoProveedor {
@@ -169,6 +170,7 @@ class DatosJugador : AppCompatActivity() {
 
                     aUsuario(email,proveedor)                       // Para pasar a la pantalla de Usuario
 
+
                 }
             }
         }
@@ -199,6 +201,7 @@ class DatosJugador : AppCompatActivity() {
         intentDatos= Intent(this, Usuario::class.java).apply {
             putExtra("email", email)
             putExtra("proveedor",proveedor )
+
         }
         startActivity(intentDatos)
 

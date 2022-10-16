@@ -20,7 +20,7 @@ class MesasHolder(private val binding: ViewMesasItemBinding) : RecyclerView.View
         binding.txDireccion.text = mesa.Calle
 
         itemView.setOnLongClickListener{onClickListener(mesa)
-        return@setOnLongClickListener true                              //setOnLongClickListener requiere devolver un valor booleano para notificar si se consumió el evento
+        return@setOnLongClickListener true                               //setOnLongClickListener requiere devolver un valor booleano para notificar si se consumió el evento
         }
 
     } private fun mostrarUrl(Foto: String) {                        //Metodo para poner la url en el recyclerView

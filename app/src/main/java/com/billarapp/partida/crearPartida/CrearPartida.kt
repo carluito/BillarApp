@@ -9,6 +9,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.billarapp.Usuario
 import com.billarapp.databinding.ActivityCrearPartidaBinding
 import com.billarapp.mesasBillar.Mesa
 import com.billarapp.partida.crearPartida.adapterCrearParitda.PartidaAdapter
@@ -25,7 +26,7 @@ class CrearPartida : AppCompatActivity() {
     private var provinciaSeleccion: String? = null
     private var localidadSeleccion: String? = null
     private lateinit var intentPartida: Intent
-    private lateinit var mesasBillarlista: ArrayList<Mesa>
+    private lateinit var localLista: ArrayList<Mesa>
     private lateinit var adaptadorPartida: PartidaAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,13 +46,13 @@ class CrearPartida : AppCompatActivity() {
 
           spinnerProvincias()
 
-        mesasBillarlista.clear()
+        localLista.clear()
 
 
         bindingPartidas.btnBucarPartida.setOnClickListener(){
 
             if(bindingPartidas.etFecha.text.toString().isNotEmpty()&&bindingPartidas.etHora.text.toString().isNotEmpty()) {
-                mesasBillarlista.clear()
+                localLista.clear()
                 mesaXLocalidad()
 
             }else{
@@ -73,9 +74,9 @@ class CrearPartida : AppCompatActivity() {
 
 
 
-        mesasBillarlista = arrayListOf()
+        localLista = arrayListOf()
 
-        adaptadorPartida = PartidaAdapter(mesasBillarlista)                                 // Creamos el objeto de Nuestra clase MesasAdapter
+        adaptadorPartida = PartidaAdapter(localLista) { mesa -> partidaSeleccionada(mesa) }                                 // Creamos el objeto de Nuestra clase MesasAdapter
 
 
             bindingPartidas.rvPartida.adapter = adaptadorPartida
@@ -88,7 +89,36 @@ class CrearPartida : AppCompatActivity() {
 
 
 
+private fun partidaSeleccionada(mesa: Mesa){
 
+    val paqueteCrear= intent.extras
+    val email: String? = paqueteCrear?.getString("email")
+    val proveedor:String? = paqueteCrear?.getString("proveedor")
+
+    var nivel: String? =null
+    db=FirebaseFirestore.getInstance()
+    if (email != null) {
+        db.collection("Usuarios").document(email).get().addOnSuccessListener {
+            nivel = (it.get("Nivel") as String?)
+            db.collection("Partidas").document((mesa.Local).toString()).set(
+                hashMapOf(
+                    "Fecha" to bindingPartidas.etFecha.text.toString(),
+                    "Hora" to bindingPartidas.etHora.text.toString(),
+                    "Local" to (mesa.Local).toString(),
+                    "Jugador" to email,
+                    "Nivel" to nivel,
+                    "Localidad" to (mesa.Localidad).toString())
+            )
+        }
+    }
+
+    Toast.makeText(this,"Partida Publicada",Toast.LENGTH_SHORT).show()
+    intentPartida= Intent(this,Usuario::class.java).apply{
+        putExtra("email",email)
+        putExtra("proveedor",proveedor)
+    }
+    startActivity(intentPartida)
+}
 
 
 
@@ -141,7 +171,7 @@ class CrearPartida : AppCompatActivity() {
 
 
         private fun horaSeleccionada(horas: Int, minutos: Int) {
-            println(horas)
+
                     if (horas>=2&&horas<9){
                         Toast.makeText(this,"No creo que esté abierto", Toast.LENGTH_SHORT).show()
                     }else {
@@ -173,7 +203,7 @@ class CrearPartida : AppCompatActivity() {
 
                     if (dc.type == DocumentChange.Type.ADDED) {
 
-                        mesasBillarlista.add(dc.document.toObject(Mesa::class.java))
+                        localLista.add(dc.document.toObject(Mesa::class.java))
 
                     }
                 }

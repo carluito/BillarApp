@@ -6,7 +6,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.billarapp.databinding.ViewMesasItemPartidaBinding
 import com.billarapp.mesasBillar.Mesa
 
-class PartidaAdapter(private val localLista: ArrayList<Mesa>/*, private val partidaClickListener: PartidaClickListener*/)     //crea objetos ViewHolder para las vistas y establece los datos para cada una
+class PartidaAdapter(private val localLista: ArrayList<Mesa>
+    , private val partidaClickListener: (Mesa)->Unit )    //crea objetos ViewHolder para las vistas y establece los datos para cada una
     : RecyclerView.Adapter<PartidaHolder>() {
 
     //Métodos del adapter para vincular los datos a las vistas
@@ -20,8 +21,8 @@ class PartidaAdapter(private val localLista: ArrayList<Mesa>/*, private val part
 
     override fun onBindViewHolder(holder: PartidaHolder, position: Int) {             //Vincula la vista a los datos
         val mesaBillar: Mesa =localLista[position]
-        holder.bind(mesaBillar)
-        //holder.itemView.setOnClickListener { mesaClickedListener.onMesaClicked(mesaBillar) } //Para la interface mesaclickListener
+        holder.bind(mesaBillar,partidaClickListener)
+
     }
 
     override fun getItemCount(): Int {      //Devuelve el tamaño de los datos
