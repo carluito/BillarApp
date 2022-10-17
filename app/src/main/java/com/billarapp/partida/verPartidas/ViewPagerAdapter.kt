@@ -3,25 +3,39 @@ package com.billarapp.partida.verPartidas
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.billarapp.partida.verPartidas.adapterBuscarPartidas.BuscarPartidasAdapter
 
-class ViewPagerAdapter(fa: FragmentActivity) : FragmentStateAdapter(fa) {
+ class ViewPagerAdapter(fa: VerPartidas) : FragmentStateAdapter(fa) {
 
 
-    companion object{
 
-        private const val ARG_OBJECT = "object"
-    }
-
-    override fun getItemCount(): Int =3
+    override fun getItemCount(): Int = 3
 
     override fun createFragment(position: Int): Fragment {
 
-        val fragment=ObjectFragment()
+        return when (position + 1) {                                    //Establecemos el layout en función de la solapa q sea
+
+            1 -> BuscarPartida()
+
+            2 -> Pendientes()
+
+            else -> MisPartidas()
+
+
+        }
+
+    }
+
+
+
+}
+      /*  val fragment=ObjectFragment()
         fragment.arguments= Bundle().apply{
 
             putInt(ARG_OBJECT,position +1)
         }
-        return fragment
-    }
-}
+        return fragment*/
+
+

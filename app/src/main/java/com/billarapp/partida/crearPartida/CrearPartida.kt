@@ -16,6 +16,8 @@ import com.billarapp.partida.crearPartida.adapterCrearParitda.PartidaAdapter
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
+import java.time.Instant
+import java.time.LocalDateTime
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -95,19 +97,23 @@ private fun partidaSeleccionada(mesa: Mesa){
     val email: String? = paqueteCrear?.getString("email")
     val proveedor:String? = paqueteCrear?.getString("proveedor")
 
+    var nombre:String?= null
     var nivel: String? =null
+
     db=FirebaseFirestore.getInstance()
     if (email != null) {
         db.collection("Usuarios").document(email).get().addOnSuccessListener {
-            nivel = (it.get("Nivel") as String?)
+            nivel = (it.get("Nivel") as String?)                                                                //Para coger nombre y nivel de la colección Usuarios
+            nombre=(it.get("Nombre") as String?)
             db.collection("Partidas").document((mesa.Local).toString()).set(
                 hashMapOf(
                     "Fecha" to bindingPartidas.etFecha.text.toString(),
                     "Hora" to bindingPartidas.etHora.text.toString(),
                     "Local" to (mesa.Local).toString(),
-                    "Jugador" to email,
+                    "Jugador" to nombre,
                     "Nivel" to nivel,
-                    "Localidad" to (mesa.Localidad).toString())
+                    "Localidad" to (mesa.Localidad).toString(),
+                    "Provincia" to (mesa.Provincia))
             )
         }
     }
@@ -159,10 +165,11 @@ private fun partidaSeleccionada(mesa: Mesa){
 
 
         private fun ponerHora() {
-                            val ponHora = PonerHoraFragment { horas, minutos -> horaSeleccionada(horas, minutos) }
-                            ponHora.show(supportFragmentManager, "hora")
 
-                        }
+            val ponHora = PonerHoraFragment { horas, minutos -> horaSeleccionada(horas, minutos) }
+            ponHora.show(supportFragmentManager, "hora")
+
+        }
 
 
 
@@ -171,12 +178,17 @@ private fun partidaSeleccionada(mesa: Mesa){
 
 
         private fun horaSeleccionada(horas: Int, minutos: Int) {
+                    val hoy = LocalDateTime.now()                                   //Para saber el dia actual
+                    val ahora= Instant.now()                                        // Para saber la hora en ese momento
+
+
+
 
                     if (horas>=2&&horas<9){
                         Toast.makeText(this,"No creo que esté abierto", Toast.LENGTH_SHORT).show()
                     }else {
                         bindingPartidas.etHora.setText(
-                            if (minutos >= 10) {
+                            if (minutos >9) {
                                  "$horas:$minutos"
                             } else {                                                  //Para poner un 0 en caso de que los minutos sean menos de 10
                                  "$horas:0$minutos"

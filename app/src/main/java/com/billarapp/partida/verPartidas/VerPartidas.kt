@@ -2,10 +2,10 @@ package com.billarapp.partida.verPartidas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.RecyclerView
 import com.billarapp.R
 import com.billarapp.databinding.ActivityVerPartidasBinding
-import com.google.android.material.badge.BadgeDrawable
+import com.billarapp.partida.verPartidas.adapterBuscarPartidas.BuscarPartidasAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class VerPartidas : AppCompatActivity() {
@@ -13,6 +13,7 @@ class VerPartidas : AppCompatActivity() {
     private lateinit var binding:ActivityVerPartidasBinding
 
     private val adapter by lazy {ViewPagerAdapter(this) }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
