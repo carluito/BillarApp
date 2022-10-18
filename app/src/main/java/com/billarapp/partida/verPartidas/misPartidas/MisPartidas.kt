@@ -1,13 +1,14 @@
-package com.billarapp.partida.verPartidas
+package com.billarapp.partida.verPartidas.misPartidas
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.billarapp.R
 import com.billarapp.databinding.FragmentMisPartidasBinding
+import com.billarapp.partida.verPartidas.Partida
+import com.billarapp.partida.verPartidas.ViewPagerAdapter
 
 class MisPartidas : Fragment() {
 

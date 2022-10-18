@@ -2,10 +2,8 @@ package com.billarapp.partida.verPartidas
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.recyclerview.widget.RecyclerView
 import com.billarapp.R
 import com.billarapp.databinding.ActivityVerPartidasBinding
-import com.billarapp.partida.verPartidas.adapterBuscarPartidas.BuscarPartidasAdapter
 import com.google.android.material.tabs.TabLayoutMediator
 
 class VerPartidas : AppCompatActivity() {
@@ -48,7 +46,7 @@ class VerPartidas : AppCompatActivity() {
 
 
 
-        }
-
-
     }
+
+
+}

@@ -1,9 +1,9 @@
 package com.billarapp
 
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.billarapp.partida.crearPartida.CrearPartida
 import com.billarapp.databinding.ActivityUsuarioBinding
 import com.billarapp.partida.verPartidas.VerPartidas
@@ -11,11 +11,12 @@ import com.billarapp.registroDatos.EditarUsuario
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 
-class Usuario : Activity() {
+class Usuario : AppCompatActivity() {
 
     private lateinit var intentUsuario: Intent
     private lateinit var bindingUsuario: ActivityUsuarioBinding
     private var db= FirebaseFirestore.getInstance()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,7 +33,12 @@ class Usuario : Activity() {
         cerrarSesion()
 
         bindingUsuario.btnVerPartidas.setOnClickListener(){
-            intentUsuario=Intent(this,VerPartidas::class.java)
+
+
+
+            intentUsuario=Intent(this,VerPartidas::class.java).apply {
+
+            }
             startActivity(intentUsuario)
         }
     }

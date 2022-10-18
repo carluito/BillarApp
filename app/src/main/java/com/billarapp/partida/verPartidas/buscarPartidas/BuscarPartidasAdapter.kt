@@ -1,6 +1,5 @@
-package com.billarapp.partida.verPartidas.adapterBuscarPartidas
+package com.billarapp.partida.verPartidas.buscarPartidas
 
-import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView

@@ -1,13 +1,12 @@
 package com.billarapp.partida.verPartidas
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
-import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.billarapp.partida.verPartidas.adapterBuscarPartidas.BuscarPartidasAdapter
+import com.billarapp.partida.verPartidas.buscarPartidas.BuscarPartida
+import com.billarapp.partida.verPartidas.misPartidas.MisPartidas
+import com.billarapp.partida.verPartidas.pendientes.Pendientes
 
- class ViewPagerAdapter(fa: VerPartidas) : FragmentStateAdapter(fa) {
+class ViewPagerAdapter(fa: VerPartidas) : FragmentStateAdapter(fa) {
 
 
 
@@ -31,11 +30,8 @@ import com.billarapp.partida.verPartidas.adapterBuscarPartidas.BuscarPartidasAda
 
 
 }
-      /*  val fragment=ObjectFragment()
-        fragment.arguments= Bundle().apply{
-
-            putInt(ARG_OBJECT,position +1)
-        }
-        return fragment*/
-
-
+/*  val fragment=ObjectFragment()
+  fragment.arguments= Bundle().apply{
+      putInt(ARG_OBJECT,position +1)
+  }
+  return fragment*/

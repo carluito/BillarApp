@@ -105,7 +105,7 @@ private fun partidaSeleccionada(mesa: Mesa){
         db.collection("Usuarios").document(email).get().addOnSuccessListener {
             nivel = (it.get("Nivel") as String?)                                                                //Para coger nombre y nivel de la colección Usuarios
             nombre=(it.get("Nombre") as String?)
-            db.collection("Partidas").document((mesa.Local).toString()).set(
+            db.collection("Partidas").document().set(                                               //dejamos dociument vacío para q genere un id automaticamente
                 hashMapOf(
                     "Fecha" to bindingPartidas.etFecha.text.toString(),
                     "Hora" to bindingPartidas.etHora.text.toString(),
@@ -113,7 +113,8 @@ private fun partidaSeleccionada(mesa: Mesa){
                     "Jugador" to nombre,
                     "Nivel" to nivel,
                     "Localidad" to (mesa.Localidad).toString(),
-                    "Provincia" to (mesa.Provincia))
+                    "Provincia" to (mesa.Provincia),
+                    "Email" to email)
             )
         }
     }
