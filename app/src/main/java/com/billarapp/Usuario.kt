@@ -49,6 +49,7 @@ class Usuario : AppCompatActivity() {
         startActivity((intentUsuario))
     }
 
+
     private fun cerrarSesion() {
 
         bindingUsuario.btnCerrarSesion.setOnClickListener {
@@ -110,6 +111,7 @@ class Usuario : AppCompatActivity() {
     }
 
     private fun crearPartida(email:String?,proveedor: String?){
+
 
         bindingUsuario.btnCrearPartida.setOnClickListener(){
 

@@ -13,7 +13,10 @@ import com.billarapp.Usuario
 import com.billarapp.databinding.ActivityCrearPartidaBinding
 import com.billarapp.mesasBillar.Mesa
 import com.billarapp.partida.crearPartida.adapterCrearParitda.PartidaAdapter
+import com.billarapp.partida.verPartidas.Partida
+import com.billarapp.partida.verPartidas.ViewPagerAdapter
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import java.time.Instant
@@ -30,7 +33,7 @@ class CrearPartida : AppCompatActivity() {
     private lateinit var intentPartida: Intent
     private lateinit var localLista: ArrayList<Mesa>
     private lateinit var adaptadorPartida: PartidaAdapter
-
+    private lateinit var mAuth:FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingPartidas = ActivityCrearPartidaBinding.inflate(layoutInflater)
@@ -52,6 +55,9 @@ class CrearPartida : AppCompatActivity() {
 
 
         bindingPartidas.btnBucarPartida.setOnClickListener(){
+
+
+           // cogerNivelyNombre()
 
             if(bindingPartidas.etFecha.text.toString().isNotEmpty()&&bindingPartidas.etHora.text.toString().isNotEmpty()) {
                 localLista.clear()
@@ -88,7 +94,30 @@ class CrearPartida : AppCompatActivity() {
 
     }
 
+/*private fun cogerNivelyNombre() {
+    mAuth =
+        FirebaseAuth.getInstance()                                                  //Para saber el email del usuario x si se apunta
+    val email = mAuth.currentUser?.email.toString()
 
+
+    var nombre: String? = null
+    var nivel: String?=null
+
+
+    if (email != null) {
+        db=FirebaseFirestore.getInstance()
+        db.collection("Usuarios").document(email).get().addOnSuccessListener {
+
+            nivel =
+                (it.get("Nivel") as String?)                                                                //Para coger nombre y nivel de la colección Usuarios
+            nombre = (it.get("Nombre") as String?)
+
+            println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" + nombre)
+
+
+        }
+    }
+}*/
 
 
 private fun partidaSeleccionada(mesa: Mesa){
@@ -97,15 +126,19 @@ private fun partidaSeleccionada(mesa: Mesa){
     val email: String? = paqueteCrear?.getString("email")
     val proveedor:String? = paqueteCrear?.getString("proveedor")
 
-    var nombre:String?= null
+    var nombre:String? =null
     var nivel: String? =null
 
-    db=FirebaseFirestore.getInstance()
+
     if (email != null) {
         db.collection("Usuarios").document(email).get().addOnSuccessListener {
+
             nivel = (it.get("Nivel") as String?)                                                                //Para coger nombre y nivel de la colección Usuarios
             nombre=(it.get("Nombre") as String?)
-            db.collection("Partidas").document().set(                                               //dejamos dociument vacío para q genere un id automaticamente
+
+
+
+            db.collection("Partidas").document(mesa.Local+bindingPartidas.etFecha.text.toString()+bindingPartidas.etHora.text.toString()).set(                                               //dejamos document vacío para q genere un id automaticamente
                 hashMapOf(
                     "Fecha" to bindingPartidas.etFecha.text.toString(),
                     "Hora" to bindingPartidas.etHora.text.toString(),
@@ -114,7 +147,9 @@ private fun partidaSeleccionada(mesa: Mesa){
                     "Nivel" to nivel,
                     "Localidad" to (mesa.Localidad).toString(),
                     "Provincia" to (mesa.Provincia),
-                    "Email" to email)
+                    "Email" to email,
+                    "Candidatos" to "Candidatos"
+                 )
             )
         }
     }

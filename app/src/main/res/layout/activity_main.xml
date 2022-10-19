@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/Brown"
-        android:text="@string/unete"
+        android:text="Mi Cuenta"
         android:textSize="34sp"
         app:cornerRadius="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -67,6 +67,6 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.084" />
+        app:layout_constraintVertical_bias="0.462" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

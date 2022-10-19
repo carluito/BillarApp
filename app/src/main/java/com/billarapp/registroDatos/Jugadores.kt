@@ -1,7 +1,7 @@
 package com.billarapp.registroDatos
 
-data class Jugadores(var nombre: String? = null,
-                     val localidad: String? = null,
-                     val nivel: String? = null,
-                     val disponibilidad:String? = null
+data class Jugadores(var Nombre: String? = null,
+                     val Localidad: String? = null,
+                     val Nivel: String? = null,
+                     val Disponibilidad:String? = null
 )

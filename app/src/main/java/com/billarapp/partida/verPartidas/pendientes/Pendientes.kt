@@ -38,7 +38,7 @@ class Pendientes : Fragment() {
 
         cargarMesas()
 
-        todasPartidas(email)
+        partidasPendientes(email)
 
         return binding.root
 
@@ -71,10 +71,10 @@ class Pendientes : Fragment() {
         Toast.makeText(activity, "Partida Publicada", Toast.LENGTH_SHORT).show()
     }
 
-    private fun todasPartidas(email:String?) {                                                                      //Método para ver todas las mesas, a ver si encuentro un metodo mejor
+    private fun partidasPendientes(email:String?) {                                                                      //Método para ver todas las mesas, a ver si encuentro un metodo mejor
 
         val db = FirebaseFirestore.getInstance()
-        db.collection("Partidas").whereEqualTo("Email",email).addSnapshotListener(object :
+        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("Candidatos","Candidatos").addSnapshotListener(object :
             EventListener<QuerySnapshot> {
 
 

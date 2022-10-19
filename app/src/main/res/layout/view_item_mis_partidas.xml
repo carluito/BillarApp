@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="250dp"
     android:background="@drawable/pizarra">
@@ -9,14 +10,15 @@
         android:id="@+id/tvPartidaNiveles"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/nivele"
+        android:text="@string/nivel2"
         android:textColor="@color/Black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.366"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.584" />
+        app:layout_constraintVertical_bias="0.584"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/tvPartidaNivel"
@@ -42,7 +44,8 @@
         app:layout_constraintHorizontal_bias="0.391"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.134" />
+        app:layout_constraintVertical_bias="0.134"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/tvPartidaLocalidad"
@@ -94,7 +97,8 @@
         app:layout_constraintHorizontal_bias="0.394"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.272" />
+        app:layout_constraintVertical_bias="0.272"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/tvPartidaLocales"
@@ -107,7 +111,8 @@
         app:layout_constraintHorizontal_bias="0.366"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.437" />
+        app:layout_constraintVertical_bias="0.437"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/tvPartidaFechas"
@@ -120,7 +125,8 @@
         app:layout_constraintHorizontal_bias="0.37"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.748" />
+        app:layout_constraintVertical_bias="0.748"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/tvPartidaHora"
@@ -146,7 +152,8 @@
         app:layout_constraintHorizontal_bias="0.363"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.878" />
+        app:layout_constraintVertical_bias="0.878"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/tvPartidaFecha"
@@ -173,7 +180,8 @@
         app:layout_constraintHorizontal_bias="0.113"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.337" />
+        app:layout_constraintVertical_bias="0.337"
+        tools:ignore="TextContrastCheck" />
 
     <TextView
         android:id="@+id/tvPublicadoX2"
@@ -199,5 +207,32 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.455"
         app:srcCompat="@drawable/triangolocortado" />
+
+    <TextView
+        android:id="@+id/tvVs"
+        android:layout_width="24dp"
+        android:layout_height="19dp"
+        android:gravity="center"
+        android:text="@string/vs"
+        android:textColor="@color/Black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.165"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.701"
+        tools:ignore="TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/tvOponente"
+        android:layout_width="79dp"
+        android:layout_height="17dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.114"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.824" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

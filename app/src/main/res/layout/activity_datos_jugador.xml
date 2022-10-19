@@ -5,7 +5,7 @@
     style="@android:style/Widget.Material.Spinner.Underlined"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/tapete3"
+    android:background="@drawable/mesa_rosa"
     tools:context=".registroDatos.DatosJugador">
 
     <TextView
@@ -87,7 +87,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:autofillHints=""
-        android:backgroundTint="@android:color/holo_green_light"
+        android:backgroundTint="@color/WhiteSmoke"
         android:ems="10"
         android:hint="@string/nombre"
         android:inputType="textCapSentences"
