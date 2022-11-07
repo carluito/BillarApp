@@ -178,7 +178,7 @@
     <TextView
         android:id="@+id/tvPublicadoX2"
         android:layout_width="79dp"
-        android:layout_height="17dp"
+        android:layout_height="20dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

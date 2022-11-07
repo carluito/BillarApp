@@ -1,21 +1,27 @@
 package com.billarapp
 
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import com.billarapp.partida.crearPartida.CrearPartida
 import com.billarapp.databinding.ActivityUsuarioBinding
+import com.billarapp.partida.verPartidas.Partida
 import com.billarapp.partida.verPartidas.VerPartidas
 import com.billarapp.registroDatos.EditarUsuario
+import com.google.android.gms.common.internal.Constants
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.*
+import com.google.firebase.firestore.EventListener
+import java.util.*
 
 class Usuario : AppCompatActivity() {
 
     private lateinit var intentUsuario: Intent
     private lateinit var bindingUsuario: ActivityUsuarioBinding
-    private var db= FirebaseFirestore.getInstance()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +31,6 @@ class Usuario : AppCompatActivity() {
 
         val email = traeEmail()
         val proveedor = traerProveedor()
-        val nivel=traerNivel()
 
         sesion(email,proveedor)
         editar(email?:"email",proveedor?:"proveedor")
@@ -34,8 +39,7 @@ class Usuario : AppCompatActivity() {
 
         bindingUsuario.btnVerPartidas.setOnClickListener(){
 
-
-
+            partidasJugadas(email)
             intentUsuario=Intent(this,VerPartidas::class.java).apply {
 
             }
@@ -66,17 +70,10 @@ class Usuario : AppCompatActivity() {
     }
 
 
-    private fun traerNivel(): String? {
-        val paqueteUnete:Bundle? = intent.extras
-        val nivel: String? = paqueteUnete?.getString("nivel")
-        return nivel
-
-    }
     private fun traeEmail(): String? {
 
         val paqueteUnete: Bundle? = intent.extras                                        //Para pasar los datos de email y provedor pero solo pintamos el email en el etEmailUsuario
-        val email: String? = paqueteUnete?.getString("email")                       //Solo voy a poner el email y a saber si queda
-        bindingUsuario.tvEmailUsuario.text=email
+        val email: String? = paqueteUnete?.getString("email")
 
         return email
     }
@@ -89,7 +86,7 @@ class Usuario : AppCompatActivity() {
         return proveedor
     }
 
-    private fun editar(email: String?,proveedor: String?){
+    private fun editar(email: String?,proveedor: String?){                                                  //Para modificar los datos de los usuarios
         bindingUsuario.btnEditarDatos.setOnClickListener {
 
             intentUsuario= Intent(this, EditarUsuario::class.java).apply {
@@ -103,7 +100,7 @@ class Usuario : AppCompatActivity() {
     }
 
     private fun sesion(email: String?,proveedor: String?){
-        val preferencias = getSharedPreferences(getString(R.string.prefs), Context.MODE_PRIVATE).edit() //Para guardar la sesión
+        val preferencias = getSharedPreferences(getString(R.string.prefs), Context.MODE_PRIVATE).edit()                                                 //Para guardar la sesión
        preferencias.putString("email", email)
        preferencias.putString("proveedor",proveedor)
        preferencias.apply()
@@ -123,4 +120,23 @@ class Usuario : AppCompatActivity() {
 
         }
     }
+
+   private fun partidasJugadas(email:String?) {                                 //Método para saber q partida es el pasado combinando una consulta y un update
+
+       val db = FirebaseFirestore.getInstance()
+       val codeRef = db.collection("Partidas")
+
+
+       codeRef.whereLessThan("FechaHora",com.google.firebase.Timestamp.now()).whereEqualTo("Email",email)   //Primero obtenemos las partidas que son el pasado
+           .whereEqualTo("EmailOponente",email)
+           .get().addOnCompleteListener { task ->
+           if (task.isSuccessful) {
+               for (document in task.result) {
+                   val update: MutableMap<String, Any> = HashMap()
+                   update["Jugada"] = true
+                   codeRef.document(document.id).set(update, SetOptions.merge())
+               }
+           }
+       }
+   }
 }

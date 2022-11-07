@@ -9,7 +9,6 @@ import android.util.Patterns
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
-import com.billarapp.MainActivity
 import com.billarapp.R
 import com.billarapp.Usuario
 import com.billarapp.databinding.ActivityUneteRegistroBinding
@@ -17,13 +16,12 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.firestore.FirebaseFirestore
 
-@Suppress("DEPRECATION")
+
 class UneteRegistro : AppCompatActivity() {
 
 

@@ -22,7 +22,7 @@ class Pendientes : Fragment() {
     private lateinit var partidasLista: ArrayList<Partida>
     private var _binding: FragmentPendientesBinding? = null
     private val binding get() = _binding!!
-    private lateinit var adaptadorRv: PendientesAdapter
+    private lateinit var adaptadorRvp: PendientesAdapter
     private lateinit var mAuth: FirebaseAuth
 
     override fun onCreateView(
@@ -60,21 +60,22 @@ class Pendientes : Fragment() {
 
         partidasLista = arrayListOf()
 
-        adaptadorRv =
+        adaptadorRvp =
             PendientesAdapter(partidasLista) { partida -> seleccionPendientes(partida) }                                             // Creamos el objeto de Nuestra clase MesasAdapter
 
-        binding.rvPendientes.adapter = adaptadorRv
+        binding.rvPendientes.adapter = adaptadorRvp
 
 
     }
     private fun seleccionPendientes(partida: Partida) {
-        Toast.makeText(activity, "Partida Publicada", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, "Pendiente", Toast.LENGTH_SHORT).show()
     }
 
     private fun partidasPendientes(email:String?) {                                                                      //Método para ver todas las mesas, a ver si encuentro un metodo mejor
 
         val db = FirebaseFirestore.getInstance()
-        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("Candidatos","Candidatos").addSnapshotListener(object :
+        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("Candidatos","").
+        whereGreaterThan("FechaHora" ,com.google.firebase.Timestamp.now()).addSnapshotListener(object :
             EventListener<QuerySnapshot> {
 
 
@@ -95,7 +96,7 @@ class Pendientes : Fragment() {
                     }
                 }
 
-                adaptadorRv.notifyDataSetChanged()
+                adaptadorRvp.notifyDataSetChanged()
 
             }
         })

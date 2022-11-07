@@ -185,8 +185,8 @@
 
     <TextView
         android:id="@+id/tvPublicadoX2"
-        android:layout_width="79dp"
-        android:layout_height="17dp"
+        android:layout_width="78dp"
+        android:layout_height="21dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -225,8 +225,8 @@
 
     <TextView
         android:id="@+id/tvOponente"
-        android:layout_width="79dp"
-        android:layout_height="17dp"
+        android:layout_width="82dp"
+        android:layout_height="22dp"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

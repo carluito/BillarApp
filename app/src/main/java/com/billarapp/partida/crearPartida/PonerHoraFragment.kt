@@ -8,7 +8,7 @@ import android.os.Bundle
 import android.widget.TimePicker
 import androidx.fragment.app.DialogFragment
 
-class PonerHoraFragment(val listener: (horas:Int, mes:Int) -> Unit): DialogFragment(),
+class PonerHoraFragment(val listener: (horas:Int, minutos:Int) -> Unit): DialogFragment(),
     TimePickerDialog.OnTimeSetListener {
 
     override fun onTimeSet(p0: TimePicker?, horas: Int, minutos: Int) {             //Devuelve la hora y los minutos

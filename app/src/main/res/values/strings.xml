@@ -106,6 +106,9 @@
     <string name="vs">VS</string>
     <string name="nivel2">Nivel:</string>
     <string name="nivele">Nivel:</string>
+    <string name="jugadas">Jugadas</string>
+    <string name="como_oponente">Como Oponente</string>
+    <string name="publicadas">Publicadas</string>
 
 
 </resources>

@@ -40,9 +40,10 @@ println("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"+ nombreOponente)
 
             2 -> Pendientes()
 
-            else -> MisPartidas()
+           3-> MisPartidas()
 
 
+            else -> BuscarPartida()
         }
 
     }

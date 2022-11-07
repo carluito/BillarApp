@@ -19,6 +19,7 @@ class MisPartidasHolder (private val binding: ViewItemMisPartidasBinding) : Recy
         binding.tvOponente.text=partida.Candidatos
 
 
+
         itemView.setOnClickListener {
             misPartidasClickListener(partida)
 

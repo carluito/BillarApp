@@ -19,8 +19,11 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
+import java.text.SimpleDateFormat
 import java.time.Instant
+import java.time.LocalDate
 import java.time.LocalDateTime
+import java.time.LocalTime
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -34,6 +37,8 @@ class CrearPartida : AppCompatActivity() {
     private lateinit var localLista: ArrayList<Mesa>
     private lateinit var adaptadorPartida: PartidaAdapter
     private lateinit var mAuth:FirebaseAuth
+    private var esHoy:Boolean=false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         bindingPartidas = ActivityCrearPartidaBinding.inflate(layoutInflater)
@@ -41,27 +46,24 @@ class CrearPartida : AppCompatActivity() {
 
         cargarMesas()
 
-        bindingPartidas.etHora.setOnClickListener() {
-            ponerHora()
-        }
-
         bindingPartidas.etFecha.setOnClickListener() {
             ponerFecha()
+            bindingPartidas.etHora.setOnClickListener() {
+                ponerHora()
+            }
         }
 
-          spinnerProvincias()
+        spinnerProvincias()
 
         localLista.clear()
 
 
         bindingPartidas.btnBucarPartida.setOnClickListener(){
 
-
-           // cogerNivelyNombre()
-
             if(bindingPartidas.etFecha.text.toString().isNotEmpty()&&bindingPartidas.etHora.text.toString().isNotEmpty()) {
                 localLista.clear()
                 mesaXLocalidad()
+
 
             }else{
                 Toast.makeText(this,"Pon fecha y hora",Toast.LENGTH_SHORT).show()
@@ -94,40 +96,22 @@ class CrearPartida : AppCompatActivity() {
 
     }
 
-/*private fun cogerNivelyNombre() {
-    mAuth =
-        FirebaseAuth.getInstance()                                                  //Para saber el email del usuario x si se apunta
-    val email = mAuth.currentUser?.email.toString()
-
-
-    var nombre: String? = null
-    var nivel: String?=null
-
-
-    if (email != null) {
-        db=FirebaseFirestore.getInstance()
-        db.collection("Usuarios").document(email).get().addOnSuccessListener {
-
-            nivel =
-                (it.get("Nivel") as String?)                                                                //Para coger nombre y nivel de la colección Usuarios
-            nombre = (it.get("Nombre") as String?)
-
-            println("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb" + nombre)
-
-
-        }
-    }
-}*/
 
 
 private fun partidaSeleccionada(mesa: Mesa){
+
+    val fecha =bindingPartidas.etFecha.text.toString()                              //Convertimos tanto la fecha como la hora de String a Date
+    val hora=bindingPartidas.etHora.text
+    val sdf=SimpleDateFormat("dd-MM-yyyy hh:mm")
+    val fechaHora= "$fecha $hora:00"
+    val timestamp=sdf.parse(fechaHora)
 
     val paqueteCrear= intent.extras
     val email: String? = paqueteCrear?.getString("email")
     val proveedor:String? = paqueteCrear?.getString("proveedor")
 
-    var nombre:String? =null
-    var nivel: String? =null
+    var nombre:String?
+    var nivel: String?
 
 
     if (email != null) {
@@ -142,13 +126,15 @@ private fun partidaSeleccionada(mesa: Mesa){
                 hashMapOf(
                     "Fecha" to bindingPartidas.etFecha.text.toString(),
                     "Hora" to bindingPartidas.etHora.text.toString(),
+                    "FechaHora" to timestamp,
                     "Local" to (mesa.Local).toString(),
                     "Jugador" to nombre,
                     "Nivel" to nivel,
                     "Localidad" to (mesa.Localidad).toString(),
                     "Provincia" to (mesa.Provincia),
                     "Email" to email,
-                    "Candidatos" to "Candidatos"
+                    "Candidatos" to "",
+                    "Jugada" to false
                  )
             )
         }
@@ -182,13 +168,36 @@ private fun partidaSeleccionada(mesa: Mesa){
         val diaHoy=calendario.get(Calendar.DAY_OF_MONTH)
         val mesHoy=calendario.get(Calendar.MONTH)
 
+        if(anho==anhoHoy&&mes==mesHoy+1&&dia==diaHoy){                                      //Para saber si es hoy
 
-        if(anho<anhoHoy||mes<mesHoy+1||dia<diaHoy){
-            Toast.makeText(this,"Fecha no válida, éso es el pasado", Toast.LENGTH_SHORT).show()                                     //Para q la fecha escogida sea siempre posterior a la actual
-
-        }else {
-
+            esHoy=true
             bindingPartidas.etFecha.setText("$dia-$mes-$anho")
+        }else{
+            if(anho==anhoHoy){
+                if(mes>(mesHoy+1)) {
+                    esHoy = false
+                    bindingPartidas.etFecha.setText("$dia-$mes-$anho")
+
+                }else if(mes==(mesHoy+1)){
+                    if(dia>diaHoy){
+                        esHoy = false
+                        bindingPartidas.etFecha.setText("$dia-$mes-$anho")
+                    }else{
+                        esHoy=false
+                        Toast.makeText(this,"Fecha no válida, éso es el pasado", Toast.LENGTH_SHORT).show()
+                    }
+                } else{
+                    esHoy=false
+                    Toast.makeText(this,"Fecha no válida, éso es el pasado", Toast.LENGTH_SHORT).show()
+                }
+            }else if(anho>anhoHoy){
+                esHoy = false
+                bindingPartidas.etFecha.setText("$dia-$mes-$anho")
+            }
+            else{
+                esHoy=false
+                Toast.makeText(this,"Fecha no válida, éso es el pasado", Toast.LENGTH_SHORT).show()
+            }
         }
 
 
@@ -214,30 +223,77 @@ private fun partidaSeleccionada(mesa: Mesa){
 
 
         private fun horaSeleccionada(horas: Int, minutos: Int) {
-                    val hoy = LocalDateTime.now()                                   //Para saber el dia actual
-                    val ahora= Instant.now()                                        // Para saber la hora en ese momento
+                    val calendario = Calendar.getInstance()
+                    val horaActual=calendario.get(Calendar.HOUR_OF_DAY)
+                    val ahora= LocalTime.now()                                                           // Para saber la hora en ese momento
+                    val horaString =
+                        if(horas<10){                                                                    // Hora a String para compararla con LocalTime
+                         if(minutos<10){                                                                 // Añadimos 0 en horas o en minutos depende para q pueda parsearla sin problema
+                             "0"+horas.toString()+":0"+minutos.toString()+":"+"00"
+
+                         }else{
+                            "0"+horas.toString()+":"+minutos.toString()+":"+"00"
+                            }
+                        }else {
+                                if(minutos<10){
+                                    horas.toString()+":0"+minutos.toString()+":"+"00"
+
+                                }else{
+                                    horas.toString()+":"+minutos.toString()+":"+"00"
+                                }
+                        }
+                    val horaHoy= LocalTime.parse(horaString)
 
 
+            if(esHoy) {                                                                                     //Para saber el dia escogido es hoy
+                    if (horaHoy.isBefore(ahora)) {                                                                                                                                        //Para comparar la hora escogida x si es el pasado
 
 
-                    if (horas>=2&&horas<9){
-                        Toast.makeText(this,"No creo que esté abierto", Toast.LENGTH_SHORT).show()
-                    }else {
+                        Toast.makeText(this, "Éso es el pasado", Toast.LENGTH_SHORT).show()
+
+                    }else{
+                        if((horas-horaActual)<2){
+
+
+                            Toast.makeText(this, "Muy ajustada,pero tú mandas", Toast.LENGTH_LONG).show()                                  //Aviso para q deje 2 horas de margen
+
+                            bindingPartidas.etHora.setText(
+                                if (minutos <10) {
+                                    "$horas:0$minutos"
+                                } else {                                                                                                                                                         //Para poner un 0 en caso de que los minutos sean menos de 10
+                                    "$horas:$minutos"
+                                })
+                        }else{
+
                         bindingPartidas.etHora.setText(
-                            if (minutos >9) {
-                                 "$horas:$minutos"
-                            } else {                                                  //Para poner un 0 en caso de que los minutos sean menos de 10
-                                 "$horas:0$minutos"
+                            if (minutos <10) {
+                                "$horas:0$minutos"
+                            } else {                                                                                                                                                         //Para poner un 0 en caso de que los minutos sean menos de 10
+                                "$horas:$minutos"
                             })
                         }
-             }
+                        }
+                }else{
+                        if (horas>2&&horas<9){
+                            Toast.makeText(this,"No creo que esté abierto", Toast.LENGTH_SHORT).show()
+                        }else {
+                            bindingPartidas.etHora.setText(
+                                if (minutos <10) {
+                                    "$horas:0$minutos"
+                                } else {                                                  //Para poner un 0 en caso de que los minutos sean menos de 10
+                                    "$horas:$minutos"
+                                })
+                        }
+                    }
+
+
+
+        }
 
 
 
 
-
-
-    private fun mesaXLocalidad(){
+    private fun mesaXLocalidad(){                                                                                       //Llenar el el recyclerView con mesas x localidad
         db=FirebaseFirestore.getInstance()
         db.collection("Mesas").whereEqualTo("Localidad",localidadSeleccion).addSnapshotListener(object:
             EventListener<QuerySnapshot> {
@@ -265,7 +321,7 @@ private fun partidaSeleccionada(mesa: Mesa){
 
 
 
-    private fun spinnerProvincias(){
+    private fun spinnerProvincias(){                                                                                //Cargar spinner Con las provincias donde haya mesa
 
             val rootProvinciaRef = FirebaseFirestore.getInstance()
             val provinciaRef = rootProvinciaRef.collection("Mesas")
@@ -281,6 +337,8 @@ private fun partidaSeleccionada(mesa: Mesa){
             spProvincia.adapter = adapter
             provinciaRef.get().addOnCompleteListener(OnCompleteListener { task ->
                 if (task.isSuccessful) {
+
+                    listaProvincias.add("")
 
                     for (document in task.result) {
 
@@ -324,9 +382,6 @@ private fun partidaSeleccionada(mesa: Mesa){
 
 
 
-
-
-
     private fun spinnerLocalidad(){
 
 
@@ -342,6 +397,7 @@ private fun partidaSeleccionada(mesa: Mesa){
         localidadRef.get().addOnCompleteListener(OnCompleteListener<QuerySnapshot?> { task ->
             if (task.isSuccessful) {
 
+                listaLocalidades.add("")
 
                 for (document in task.result) {
                     val localidad = document.getString("Localidad")

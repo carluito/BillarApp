@@ -7,6 +7,7 @@ import android.widget.Toast
 import com.billarapp.databinding.ActivityMainBinding
 import com.billarapp.mesasBillar.BuscarMesa
 import com.billarapp.registroDatos.UneteRegistro
+import com.google.firebase.firestore.FirebaseFirestore
 
 class MainActivity : AppCompatActivity() {
     private lateinit var bindingMain: ActivityMainBinding //Modificador Private para que solo sea visible en la clase actual y lateinit
@@ -39,4 +40,6 @@ class MainActivity : AppCompatActivity() {
         bindingMain.btnInfo.setOnClickListener{ Toast.makeText(this,"ostia", Toast.LENGTH_SHORT).show()}
 
     }
+
+
 }

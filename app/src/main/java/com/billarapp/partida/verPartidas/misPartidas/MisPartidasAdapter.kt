@@ -20,8 +20,8 @@ class MisPartidasAdapter (private val partidasLista: ArrayList<Partida>, private
 
     override fun onBindViewHolder(holder: MisPartidasHolder, position: Int) {
 
-        val partidaBuscar: Partida = partidasLista[position]
-        holder.bind(partidaBuscar,misPartidasClickListener)
+        val misPartidas: Partida = partidasLista[position]
+        holder.bind(misPartidas,misPartidasClickListener)
 
     }
 
