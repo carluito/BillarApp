@@ -30,7 +30,7 @@ class MesasHolder(private val binding: ViewMesasItemBinding) : RecyclerView.View
         val executor = Executors.newSingleThreadExecutor()      //Declaración Executor para analizar la Url
 
         val handler = Handler(Looper.getMainLooper())           //Handler se encarga de cargar la imagen una vez analizada proporcionando
-        //una interfaz para enviar trabajo a los hilos de looper
+                                                                //una interfaz para enviar trabajo a los hilos de looper
 
         var imagen: Bitmap?                               //Iniciar la imagen
 

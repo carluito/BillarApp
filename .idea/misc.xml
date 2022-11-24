@@ -3,12 +3,13 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/drawable/decision.xml" value="0.118" />
         <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/drawable/splash_screen.xml" value="0.1425" />
         <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/layout/activity_buscar_mesa.xml" value="0.15617977528089888" />
         <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/layout/activity_crear_partida.xml" value="0.33" />
         <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/layout/activity_datos_jugador.xml" value="0.25" />
         <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/layout/activity_editar_usuario.xml" value="0.3032015065913371" />
-        <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/layout/activity_main.xml" value="0.21958925750394945" />
         <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/layout/activity_partidas.xml" value="0.25" />
         <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/layout/activity_unete_registro.xml" value="0.33" />
         <entry key="..\:/Users/krl8/AndroidStudioProjects/BillarApp/app/src/main/res/layout/activity_usuario.xml" value="0.33" />

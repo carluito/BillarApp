@@ -24,22 +24,22 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnUnirse"
-        app:layout_constraintVertical_bias="0.268" />
+        app:layout_constraintVertical_bias="0.371" />
 
     <Button
         android:id="@+id/btnUnirse"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/Brown"
-        android:text="Mi Cuenta"
+        android:text="@string/micuenta"
         android:textSize="34sp"
         app:cornerRadius="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.485"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.343" />
+        app:layout_constraintVertical_bias="0.314" />
 
     <Button
         android:id="@+id/btnInfo"
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/Tomato"
         android:text="@string/info"
-        android:textColor="#000000"
+        android:textColor="#3E2723"
         app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -68,5 +68,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.462" />
+
+    <Button
+        android:id="@+id/btnAviso"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="39dp"
+        android:background="@color/Red"
+        android:text="@string/aviso"
+        android:textColor="#000000"
+        app:layout_constraintBottom_toTopOf="@+id/btnUnirse"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/mostrarMisPartidas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

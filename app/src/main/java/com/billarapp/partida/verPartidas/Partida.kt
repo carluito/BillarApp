@@ -12,7 +12,7 @@ data class Partida(var Jugador: String?=null,
                    var Fecha: String?=null,
                    var Hora: String?=null,
                    var Nivel: String?=null,
-                   var Candidatos: String?=null,
+                   var NombreOponente: String?=null,
                    var EmailOponente: String?=null,
                    var Email: String?=null,
                    @ServerTimestamp

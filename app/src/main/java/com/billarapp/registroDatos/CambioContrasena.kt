@@ -35,16 +35,13 @@ class CambioContrasena : Fragment(R.layout.fragment_cambio_contrasena) {
 
         mAuth = FirebaseAuth.getInstance()
 
-       /* val miPaquete =
-            arguments                                         //Para recibir el email enviado desde el activity EditarUsuario
-        val email = miPaquete!!.getString("email")*/
 
         binding.btnCambio.setOnClickListener() {
 
             cambioPassword()
         }
 
-        return binding.root//inflater.inflate(R.layout.fragment_cambio_contrasena,container,false)
+        return binding.root
 
 
     }
@@ -106,12 +103,5 @@ class CambioContrasena : Fragment(R.layout.fragment_cambio_contrasena) {
 
         }
     }
-   /* fun Fragment.hideKeyboard() {                                                                                     //Para esconder el teclado pero hay q mirarlo bien
-        view?.let { activity?.hideKeyboard(it) }
-    }
 
-    fun Context.hideKeyboard(view: View) {
-        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
-    }*/
 }

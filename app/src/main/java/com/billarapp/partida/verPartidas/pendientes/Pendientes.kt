@@ -1,5 +1,6 @@
 package com.billarapp.partida.verPartidas.pendientes
 
+import android.content.ContentValues
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -8,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.billarapp.R
 import com.billarapp.databinding.FragmentBuscarPartidaBinding
@@ -24,6 +26,7 @@ class Pendientes : Fragment() {
     private val binding get() = _binding!!
     private lateinit var adaptadorRvp: PendientesAdapter
     private lateinit var mAuth: FirebaseAuth
+    private lateinit var db : FirebaseFirestore
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -68,13 +71,13 @@ class Pendientes : Fragment() {
 
     }
     private fun seleccionPendientes(partida: Partida) {
-        Toast.makeText(activity, "Pendiente", Toast.LENGTH_SHORT).show()
+        alertDialog(partida)
     }
 
     private fun partidasPendientes(email:String?) {                                                                      //Método para ver todas las mesas, a ver si encuentro un metodo mejor
 
         val db = FirebaseFirestore.getInstance()
-        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("Candidatos","").
+        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("Candidatos",false).
         whereGreaterThan("FechaHora" ,com.google.firebase.Timestamp.now()).addSnapshotListener(object :
             EventListener<QuerySnapshot> {
 
@@ -100,6 +103,41 @@ class Pendientes : Fragment() {
 
             }
         })
+
+    }
+    private fun alertDialog(partida: Partida){
+
+        val builder = AlertDialog.Builder(activity as Context)                                  //Alert dialog con dos botones para confirmar
+        builder.setTitle("¿Borrar?")
+        builder.setMessage("¿Quieres borrar esta partida?")
+
+        builder.setPositiveButton("Cancelar") { _, _ ->
+
+        }
+        builder.setNegativeButton("Aceptar") { _, _ ->
+
+            db=FirebaseFirestore.getInstance()                                                  // Al pulsar aceptar se crea una partida con identificador local+fecha+hora y se guarda en la colección Partidas
+
+            db.collection("Partidas").document(partida.Local + partida.Fecha + partida.Hora).delete().addOnSuccessListener() {
+                Log.d(ContentValues.TAG,"Datos actualizados")
+            } .addOnFailureListener() {
+                Log.d(ContentValues.TAG,"Error Firestore")
+            }
+
+            Toast.makeText(
+                activity,
+                "Borrada", Toast.LENGTH_SHORT
+            ).show()
+            partidasLista.clear()
+        }
+
+        val dialog: AlertDialog = builder.create()
+        dialog.show()
+
+
+
+
+
 
     }
 }

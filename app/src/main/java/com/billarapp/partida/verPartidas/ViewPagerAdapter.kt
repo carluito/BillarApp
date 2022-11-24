@@ -11,36 +11,20 @@ import com.billarapp.partida.verPartidas.pendientes.Pendientes
 
 class ViewPagerAdapter(fa: VerPartidas) : FragmentStateAdapter(fa) {
 
-    /*private lateinit var db:FirebaseFirestore
-    private lateinit var mAuth:FirebaseAuth
-    companion object{
-
-        private var nombreOponente:String?=null
 
 
-    }*/
 
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = 3                                //3 solapas
 
     override fun createFragment(position: Int): Fragment {
-        /*mAuth =
-            FirebaseAuth.getInstance()                                                  //Para saber el email del usuario x si se apunta
-        val email = mAuth.currentUser?.email.toString()
-         nombreOponente=cogerNombreOponente(email)
 
-println("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"+ nombreOponente)
-        val fragment=BuscarPartida()
-        fragment.arguments= Bundle().apply{
-
-            putInt(nombreOponente,1)
-        }*/
         return when (position + 1) {                                    //Establecemos el layout en función de la solapa q sea
 
-            1 -> BuscarPartida()
+            1 -> MisPartidas()
 
-            2 -> Pendientes()
+            2 -> BuscarPartida()
 
-           3-> MisPartidas()
+            3-> Pendientes()
 
 
             else -> BuscarPartida()
@@ -50,8 +34,3 @@ println("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"+ nombreOponente)
 
 
 }
-/*  val fragment=ObjectFragment()
-  fragment.arguments= Bundle().apply{
-      putInt(ARG_OBJECT,position +1)
-  }
-  return fragment*/

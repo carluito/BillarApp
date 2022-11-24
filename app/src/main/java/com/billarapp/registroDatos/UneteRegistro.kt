@@ -109,8 +109,7 @@ class UneteRegistro : AppCompatActivity() {
                         }
                     }
 
-            }/*else{
-                Toast.makeText(this,"Me cago en dios pon santo y seña",Toast.LENGTH_SHORT).show()}*/
+            }
         }
 
         configuracionGoogle()

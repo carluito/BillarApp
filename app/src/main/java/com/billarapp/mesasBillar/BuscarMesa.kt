@@ -65,14 +65,6 @@ class BuscarMesa : Activity() { //La clase Activity se encarga de crear una vent
 
 
 
-
-
-
-
-
-
-
-
     private fun onItemSelected(mesa:Mesa){                                                          //Para q al hacer long click vaya al navegador a buscarlo x nombre del local y localidad
 
 

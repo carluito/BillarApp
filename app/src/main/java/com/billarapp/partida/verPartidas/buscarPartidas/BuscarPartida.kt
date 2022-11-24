@@ -19,11 +19,10 @@ import com.billarapp.partida.verPartidas.Partida
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
+import java.util.HashMap
 
 
-
-
-    class BuscarPartida : Fragment() {
+class BuscarPartida : Fragment() {
 
         private lateinit var partidasLista: ArrayList<Partida>
         private var _binding: FragmentBuscarPartidaBinding? = null
@@ -44,19 +43,14 @@ import com.google.firebase.firestore.*
             mAuth = FirebaseAuth.getInstance()                                                  //Para saber el email del usuario x si se apunta
             val email=mAuth.currentUser?.email.toString()
 
-            borrarPartidaSinOponente(email)                                                     //Para borrar las partidas a las q nadie se apuntó
+
 
             cargarMesas()                                                                       // Cargar los items
 
-            spinnerProvincias()
+            spinnerProvincias(email)
 
-            binding.btnBuscarPartida.setOnClickListener() {
+            buscarPartida(email)
 
-                mesaXLocalidad(email)
-
-                partidasLista.clear()
-
-            }
 
             return binding.root
 
@@ -67,7 +61,16 @@ import com.google.firebase.firestore.*
             _binding = null
         }
 
+        private fun buscarPartida(email: String?){
+            binding.btnBuscarPartida.setOnClickListener() {
 
+                mesaXLocalidad(email)
+
+                partidasLista.clear()
+
+            }
+
+        }
         private fun cargarMesas() {
 
 
@@ -89,7 +92,11 @@ import com.google.firebase.firestore.*
         }
 
 
-        private fun seleccionBuscarPartida(partida: Partida) {
+        private fun seleccionBuscarPartida(partida: Partida) {                              //Para controlar la selección de los diferentes items
+          alertDialogBuscar(partida)
+        }
+
+        private fun alertDialogBuscar(partida: Partida){                                    //Alert dialog para escoger o no esa partida
             mAuth =
                 FirebaseAuth.getInstance()                                                  //Para saber el email del usuario x si se apunta
             val email = mAuth.currentUser?.email.toString()
@@ -104,10 +111,10 @@ import com.google.firebase.firestore.*
 
 
                 nombreee =
-                    (it.get("Nombre") as String?)                                                  //Para coger nombre del oponente
+                    (it.get("Nombre") as String?)                                                  //Para coger el nombre del oponente
             }
 
-            val builder = AlertDialog.Builder(activity as Context)
+            val builder = AlertDialog.Builder(activity as Context)                                  //Alert dialog con dos botones para confirmar
             builder.setTitle("¿Jugar?")
             builder.setMessage("¿Quieres jugar esta partida?")
 
@@ -116,13 +123,15 @@ import com.google.firebase.firestore.*
             }
             builder.setNegativeButton("Aceptar") { _, _ ->
 
-                db=FirebaseFirestore.getInstance()
+                db=FirebaseFirestore.getInstance()                                                  // Al pulsar aceptar se crea una partidaº con identificador local+fecha+hora y se guarda en la colecion partidas
 
                 db.collection("Partidas").document(partida.Local + partida.Fecha + partida.Hora).update(
-                    "Candidatos", nombreee, "EmailOponente", email).addOnSuccessListener() {
+                    "NombreOponente", nombreee, "EmailOponente", email,"Candidatos",true).addOnSuccessListener() {
                     Log.d(TAG,"Datos actualizados")
+                    db.collection("Usuarios").document(partida.Email.toString()).update("Aviso",true).addOnSuccessListener(){
+                    }
                 } .addOnFailureListener() {
-                 Log.d(TAG,"Error Firestore")
+                    Log.d(TAG,"Error Firestore")
                 }
 
                 Toast.makeText(
@@ -137,11 +146,10 @@ import com.google.firebase.firestore.*
 
         }
 
-
-        private fun spinnerProvincias() {
+        private fun spinnerProvincias(email: String?) {
 
             val rootProvinciaRef = FirebaseFirestore.getInstance()
-            val provinciaRef = rootProvinciaRef.collection("Partidas")
+            val provinciaRef = rootProvinciaRef.collection("Partidas").whereEqualTo("Candidatos", false).whereNotEqualTo("Email",email)
             val spProvincia = binding.spProvinciaPartida
             val listaProvincias: MutableList<String?> = ArrayList()
             val adapter = ArrayAdapter(
@@ -197,7 +205,7 @@ import com.google.firebase.firestore.*
         private fun spinnerLocalidad() {
             val rootLocalidadRef = FirebaseFirestore.getInstance()
             val localidadRef = rootLocalidadRef.collection("Partidas")
-                .whereEqualTo("Provincia", provinciaSeleccion)
+                .whereEqualTo("Provincia", provinciaSeleccion).whereEqualTo("Candidatos", false)
             val spLocalidades = binding.spLocalidadPartida
             val listaLocalidades: MutableList<String?> = ArrayList()
             val adapter =
@@ -249,7 +257,8 @@ import com.google.firebase.firestore.*
 
         private fun mesaXLocalidad(email: String?) {
             val db = FirebaseFirestore.getInstance()
-            db.collection("Partidas").whereEqualTo("Localidad", localidadSeleccion).whereNotEqualTo("Email",email).whereEqualTo("Candidatos","")
+            db.collection("Partidas").whereEqualTo("Localidad", localidadSeleccion)
+                .whereNotEqualTo("Email",email).whereEqualTo("Candidatos",false)
                 .addSnapshotListener(object : EventListener<QuerySnapshot> {
 
                     override fun onEvent(
@@ -273,22 +282,6 @@ import com.google.firebase.firestore.*
                         adaptadorRv.notifyDataSetChanged()
                     }
                 })
-        }
-
-        private fun borrarPartidaSinOponente(email: String?) {
-
-            val db = FirebaseFirestore.getInstance()
-            val codeRef = db.collection("Partidas")
-
-            codeRef.whereLessThan("FechaHora", com.google.firebase.Timestamp.now()).whereEqualTo("Candidatos", "")
-                .whereEqualTo("Email", email).get()                                                                //Primero obtenemos las partidas que son el pasado
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        for (document in task.result) {
-                            codeRef.document(document.id).delete()
-                        }
-                    }
-                }
         }
 
 }

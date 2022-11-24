@@ -30,7 +30,7 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-    //Para que el viewBinding o Databinding? esté operativo
+    //Para que la libreia Databinding esté operativa
     buildFeatures{
         viewBinding=true
     }

@@ -44,6 +44,7 @@ class MisPartidas : Fragment() {
 
 
         cargarMesas()
+        misPartidasPublicadas(email)
 
         binding.btnPublicadas.setOnClickListener(){
             partidasLista.clear()
@@ -82,18 +83,16 @@ class MisPartidas : Fragment() {
 
     }
 
-    private fun miasSelected(partida: Partida) {
+    private fun miasSelected(partida: Partida) {                                                                              //Para gestionar la selección de items, pero solo es visualización
 
-        Toast.makeText(
-            activity,
-            "Espera a que confirme tu contrincante", Toast.LENGTH_SHORT).show()
+
     }
 
     private fun misPartidasPublicadas(email: String?) {                                                                      //Método para ver todas las mesas, a ver si encuentro un metodo mejor
         val db = FirebaseFirestore.getInstance()
 
 
-        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("Jugada" ,false).whereNotEqualTo("Candidatos","")
+        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("Jugada" ,false).whereEqualTo("Candidatos",true)
 
             .addSnapshotListener(object :
                         EventListener<QuerySnapshot> {
@@ -167,7 +166,7 @@ class MisPartidas : Fragment() {
 
 
 
-        db.collection("Partidas").whereEqualTo("Email",email)/*.whereEqualTo("EmailOponente",email)*/.                      //Consulta para llenar el recycler view donde el email de usuario coincida con el email  y emailoponente ademas de q jugada sea true
+        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("EmailOponente",email).                      //Consulta para llenar el recycler view donde el email de usuario coincida con el email  y emailoponente ademas de q jugada sea true
         whereEqualTo("Jugada",true).addSnapshotListener(object :
 
                 EventListener<QuerySnapshot> {

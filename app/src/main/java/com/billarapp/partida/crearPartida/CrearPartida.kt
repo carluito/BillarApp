@@ -1,5 +1,8 @@
 package com.billarapp.partida.crearPartida
 
+
+import android.content.ContentValues
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,21 +11,18 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.billarapp.Usuario
 import com.billarapp.databinding.ActivityCrearPartidaBinding
 import com.billarapp.mesasBillar.Mesa
 import com.billarapp.partida.crearPartida.adapterCrearParitda.PartidaAdapter
 import com.billarapp.partida.verPartidas.Partida
-import com.billarapp.partida.verPartidas.ViewPagerAdapter
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.LocalTime
 import java.util.*
 import kotlin.collections.ArrayList
@@ -31,13 +31,12 @@ class CrearPartida : AppCompatActivity() {
 
     private lateinit var bindingPartidas: ActivityCrearPartidaBinding
     private lateinit var db: FirebaseFirestore
-    private var provinciaSeleccion: String? = null
-    private var localidadSeleccion: String? = null
+    private var provinciaSeleccion: String? = null                                  //Variable para guardar la provincia seleccionada
+    private var localidadSeleccion: String? = null                                  //Variable para guardar la localidad seleccionada
     private lateinit var intentPartida: Intent
     private lateinit var localLista: ArrayList<Mesa>
     private lateinit var adaptadorPartida: PartidaAdapter
-    private lateinit var mAuth:FirebaseAuth
-    private var esHoy:Boolean=false
+    private var esHoy:Boolean=false                                                 //Variable para saber si el dia es hoy
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,32 +45,39 @@ class CrearPartida : AppCompatActivity() {
 
         cargarMesas()
 
-        bindingPartidas.etFecha.setOnClickListener() {
-            ponerFecha()
-            bindingPartidas.etHora.setOnClickListener() {
-                ponerHora()
-            }
-        }
+        ponerFechayHora()
 
         spinnerProvincias()
 
         localLista.clear()
 
-
-        bindingPartidas.btnBucarPartida.setOnClickListener(){
-
-            if(bindingPartidas.etFecha.text.toString().isNotEmpty()&&bindingPartidas.etHora.text.toString().isNotEmpty()) {
-                localLista.clear()
-                mesaXLocalidad()
+        botonCrearPartida()
 
 
-            }else{
-                Toast.makeText(this,"Pon fecha y hora",Toast.LENGTH_SHORT).show()
-            }
+    }
+private fun ponerFechayHora(){
+    bindingPartidas.etFecha.setOnClickListener() {
+        ponerFecha()
+        bindingPartidas.etHora.setOnClickListener() {
+            ponerHora()
+        }
+    }
+}
+private fun botonCrearPartida(){
+
+    bindingPartidas.btnCrearPartida.setOnClickListener(){
+
+        if(bindingPartidas.etFecha.text.toString().isNotEmpty()&&bindingPartidas.etHora.text.toString().isNotEmpty()) {
+            localLista.clear()
+            mesaXLocalidad()
+
+
+        }else{
+            Toast.makeText(this,"Pon fecha y hora",Toast.LENGTH_SHORT).show()
         }
     }
 
-
+}
 
 
 
@@ -98,7 +104,7 @@ class CrearPartida : AppCompatActivity() {
 
 
 
-private fun partidaSeleccionada(mesa: Mesa){
+private fun partidaSeleccionada(mesa: Mesa){                                        // En cuanto seleccionemos una mesa del recycler view nos creará la partida añadiendo todos los datos necesarios
 
     val fecha =bindingPartidas.etFecha.text.toString()                              //Convertimos tanto la fecha como la hora de String a Date
     val hora=bindingPartidas.etHora.text
@@ -113,39 +119,57 @@ private fun partidaSeleccionada(mesa: Mesa){
     var nombre:String?
     var nivel: String?
 
+    val builder = AlertDialog.Builder(this as Context)                                  //Alert dialog con dos botones para confirmar la mesa
+    builder.setTitle("¿Seleccionar?")
+    builder.setMessage("¿Quieres seleccionar esta mesa?")
 
-    if (email != null) {
-        db.collection("Usuarios").document(email).get().addOnSuccessListener {
+    builder.setPositiveButton("Cancelar") { _, _ ->
 
-            nivel = (it.get("Nivel") as String?)                                                                //Para coger nombre y nivel de la colección Usuarios
-            nombre=(it.get("Nombre") as String?)
+    }
+    builder.setNegativeButton("Aceptar") { _, _ ->
+
+        if (email != null) {
+            db.collection("Usuarios").document(email).get().addOnSuccessListener {
+
+                nivel =
+                    (it.get("Nivel") as String?)                                                                //Para coger nombre y nivel de la colección Usuarios
+                nombre = (it.get("Nombre") as String?)
 
 
 
-            db.collection("Partidas").document(mesa.Local+bindingPartidas.etFecha.text.toString()+bindingPartidas.etHora.text.toString()).set(                                               //dejamos document vacío para q genere un id automaticamente
-                hashMapOf(
-                    "Fecha" to bindingPartidas.etFecha.text.toString(),
-                    "Hora" to bindingPartidas.etHora.text.toString(),
-                    "FechaHora" to timestamp,
-                    "Local" to (mesa.Local).toString(),
-                    "Jugador" to nombre,
-                    "Nivel" to nivel,
-                    "Localidad" to (mesa.Localidad).toString(),
-                    "Provincia" to (mesa.Provincia),
-                    "Email" to email,
-                    "Candidatos" to "",
-                    "Jugada" to false
-                 )
-            )
+                db.collection("Partidas")
+                    .document(mesa.Local + bindingPartidas.etFecha.text.toString() + bindingPartidas.etHora.text.toString())
+                    .set(
+                        hashMapOf(
+                            "Fecha" to bindingPartidas.etFecha.text.toString(),
+                            "Hora" to bindingPartidas.etHora.text.toString(),
+                            "FechaHora" to timestamp,
+                            "Local" to (mesa.Local).toString(),
+                            "Jugador" to nombre,
+                            "Nivel" to nivel,
+                            "Localidad" to (mesa.Localidad).toString(),
+                            "Provincia" to (mesa.Provincia),
+                            "Email" to email,
+                            "Candidatos" to false,
+                            "Jugada" to false
+                        )
+                    )
+            }
         }
-    }
+        Toast.makeText(this,"Partida Publicada",Toast.LENGTH_SHORT).show()
 
-    Toast.makeText(this,"Partida Publicada",Toast.LENGTH_SHORT).show()
-    intentPartida= Intent(this,Usuario::class.java).apply{
-        putExtra("email",email)
-        putExtra("proveedor",proveedor)
+
+
+        intentPartida= Intent(this,Usuario::class.java).apply{                                                          //Para ir a la activity Usuario al ser publicada
+            putExtra("email",email)
+            putExtra("proveedor",proveedor)
+        }
+        startActivity(intentPartida)
     }
-    startActivity(intentPartida)
+    val dialog: AlertDialog = builder.create()
+    dialog.show()
+
+
 }
 
 
@@ -438,5 +462,6 @@ private fun partidaSeleccionada(mesa: Mesa){
         }
 
     }
+
 
 }

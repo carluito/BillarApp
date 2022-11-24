@@ -109,6 +109,8 @@
     <string name="jugadas">Jugadas</string>
     <string name="como_oponente">Como Oponente</string>
     <string name="publicadas">Publicadas</string>
+    <string name="micuenta">Mi Cuenta</string>
+    <string name="aviso">Aviso!!!</string>
 
 
 </resources>

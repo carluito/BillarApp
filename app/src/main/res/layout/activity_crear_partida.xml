@@ -149,10 +149,10 @@
 
 
     <Button
-        android:id="@+id/btnBucarPartida"
+        android:id="@+id/btnCrearPartida"
         android:layout_width="409dp"
         android:layout_height="36dp"
-        android:text="@string/buscar"
+        android:text="@string/buscar_mesa"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

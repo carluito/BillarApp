@@ -10,7 +10,7 @@ class VerPartidas : AppCompatActivity() {
 
     private lateinit var binding:ActivityVerPartidasBinding
 
-    private val adapter by lazy {ViewPagerAdapter(this) }
+    private val adapter by lazy {ViewPagerAdapter(this) }                   //Adptador de la actividad viewpagerAdapter Para inicializarlo sólo en el momento que lo use
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,19 +23,17 @@ class VerPartidas : AppCompatActivity() {
         val tabLayoutMediator=TabLayoutMediator(binding.tabs,binding.pager) { tab, position ->
             when (position +1) {
                 1 -> {
-                    tab.text = "Buscar"
-                    tab.setIcon(R.drawable.ic_baseline_search_24)
-                    /*val badge:BadgeDrawable= tab.orCreateBadge                                        //Badge a modo de aviso
-                    badge.backgroundColor=ContextCompat.getColor(applicationContext,R.color.CadetBlue)
-                    badge.isVisible=true*/
-                }
-                2 -> {
-                    tab.text = "Pendientes"
-                    tab.setIcon(R.drawable.decision)
-                }
-                3 -> {
                     tab.text = "Mis Partidas"
                     tab.setIcon(R.drawable.mias)
+
+                }
+                2 -> {
+                    tab.text = "Buscar"
+                    tab.setIcon(R.drawable.ic_baseline_search_24)
+                }
+                3 -> {
+                    tab.text = "Pendientes"
+                    tab.setIcon(R.drawable.decision)
                 }
             }
         }

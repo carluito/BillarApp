@@ -43,20 +43,20 @@ class EditarUsuario : AppCompatActivity() {
         spDisponibilidad()
         spNivel()
 
-        bindingEditar.btEditar.setOnClickListener{
+        bindingEditar.btEditar.setOnClickListener{                                                                  //Controlar la pulsación del botón para cambiar datos
 
             update(email)
 
         }
 
 
-        bindingEditar.btnBorrarUsuario.setOnClickListener(){
+        bindingEditar.btnBorrarUsuario.setOnClickListener(){                                                        //Controlar la pulsación del botón para borrar cuenta
 
             borrarCuenta(email)
 
         }
 
-        bindingEditar.btnCambioContrasena.setOnClickListener(){
+        bindingEditar.btnCambioContrasena.setOnClickListener(){                                                     //Controlar la pulsación del botón para cambiar la contraseña
 
             val miFragmento= CambioContrasena()
             val fragmento: Fragment?=
@@ -65,15 +65,15 @@ class EditarUsuario : AppCompatActivity() {
             if (fragmento !is Fragment){
 
                 val miPaquete = Bundle()
-                miPaquete.putString("email",email)                          //Para enviar el email a los fragments de esta actividad
+                miPaquete.putString("email",email)                                                                  //Para enviar el email a los fragments de esta actividad
                 miFragmento.arguments=miPaquete
 
                 supportFragmentManager.beginTransaction()
                     .add(R.id.mostrarFragments,miFragmento,CambioContrasena::class.java.simpleName)
-                    .addToBackStack(null)                                                           //Hace q cuando pulsamos atras desaparezca el fragmento
+                    .addToBackStack(null)                                                                      //Hace q cuando pulsamos atras desaparezca el fragmento
                     .commit()
             }
-           // bindingEditar.btnCambioContrasena.visibility=View.GONE                                        //Oculta el boton
+
         }
 
 
@@ -184,16 +184,16 @@ class EditarUsuario : AppCompatActivity() {
 
 
 
-    private fun update(email :String?){
+    private fun update(email :String?){                                                             // Para cambiar lo que escriba el usuario en el documento de la coleccion Usuario
 
-        val uNombre = bindingEditar.etNombre2.text.trim().toString()
-        val uLocalidad= bindingEditar.etLocalidad2.text.trim().toString()
+        val uNombre = bindingEditar.etNombre2.text.toString()                                //Asisgnamos cada valor a una variable junto a toString para q sea este el tipo
+        val uLocalidad= bindingEditar.etLocalidad2.text.toString()
         val uNivel= bindingEditar.spNivel2.selectedItem.toString()
         val uProvincia= bindingEditar.spProvincia2.selectedItem.toString()
         val uDisponibilidad= bindingEditar.spDisponibilidad2.selectedItem.toString()
 
         db= FirebaseFirestore.getInstance()
-        if (email != null) {
+        if (email != null) {                                                                                //Mediante update comprobando antes que no esté vacío
             if (uNombre.isNotEmpty()) {
                 db.collection("Usuarios").document(email)
                     .update("Nombre", uNombre)
@@ -211,7 +211,7 @@ class EditarUsuario : AppCompatActivity() {
                 db.collection("Usuarios").document(email).update("Disponibilidad", uDisponibilidad)
             }
         }
-        pintaDatos(email)
+        pintaDatos(email)                                                                                           //Para poner los datos en la parte izquierda de la pantalla y deje volver y volver a cambiar
 
     }
 

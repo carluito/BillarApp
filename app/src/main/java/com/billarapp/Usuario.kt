@@ -29,28 +29,35 @@ class Usuario : AppCompatActivity() {
         bindingUsuario = ActivityUsuarioBinding.inflate(layoutInflater)
         setContentView(bindingUsuario.root)
 
-        val email = traeEmail()
-        val proveedor = traerProveedor()
 
-        sesion(email,proveedor)
-        editar(email?:"email",proveedor?:"proveedor")
-        crearPartida(email,proveedor)
+        sesion(traeEmail(),traerProveedor())
+        borrarPartidaSinOponente(traeEmail())                                                       //Para borrar las partidas a las q nadie se apuntó
+        partidasJugadas()                                                                           //Para darle el valor true a Jugada
+        editar(traeEmail()?:"email",traerProveedor()?:"proveedor")
+        crearPartida(traeEmail(),traerProveedor())
+        verPartidas()
         cerrarSesion()
 
-        bindingUsuario.btnVerPartidas.setOnClickListener(){
-
-            partidasJugadas(email)
-            intentUsuario=Intent(this,VerPartidas::class.java).apply {
-
-            }
-            startActivity(intentUsuario)
-        }
     }
 
     override fun onBackPressed() {                              //Sobreescribimos el método onBackPressed para q al pulsar el boton retroceso vuelva a MainActivity
         super.onBackPressed()
         intentUsuario= Intent(this,MainActivity::class.java)
         startActivity((intentUsuario))
+    }
+
+    private fun verPartidas(){
+
+        bindingUsuario.btnVerPartidas.setOnClickListener(){
+
+
+            intentUsuario=Intent(this,VerPartidas::class.java).apply {
+
+            }
+            startActivity(intentUsuario)
+        }
+
+
     }
 
 
@@ -72,9 +79,9 @@ class Usuario : AppCompatActivity() {
 
     private fun traeEmail(): String? {
 
-        val paqueteUnete: Bundle? = intent.extras                                        //Para pasar los datos de email y provedor pero solo pintamos el email en el etEmailUsuario
+        val paqueteUnete: Bundle? = intent.extras                                        //Para pasar los datos de email y proveedor pero solo pintamos el email en el etEmailUsuario
         val email: String? = paqueteUnete?.getString("email")
-
+        bindingUsuario.tvEmailUsuario.text= email
         return email
     }
 
@@ -91,7 +98,7 @@ class Usuario : AppCompatActivity() {
 
             intentUsuario= Intent(this, EditarUsuario::class.java).apply {
 
-                putExtra("email",email)
+                putExtra("email",email)                                                                //Pasar los datos a la pantalla de EditarUsuario
                 putExtra("proveedor",proveedor )
             }
 
@@ -100,7 +107,7 @@ class Usuario : AppCompatActivity() {
     }
 
     private fun sesion(email: String?,proveedor: String?){
-        val preferencias = getSharedPreferences(getString(R.string.prefs), Context.MODE_PRIVATE).edit()                                                 //Para guardar la sesión
+        val preferencias = getSharedPreferences(getString(R.string.prefs), Context.MODE_PRIVATE).edit()                                                 //Para guardar la sesión en shared preferences
        preferencias.putString("email", email)
        preferencias.putString("proveedor",proveedor)
        preferencias.apply()
@@ -121,22 +128,38 @@ class Usuario : AppCompatActivity() {
         }
     }
 
-   private fun partidasJugadas(email:String?) {                                 //Método para saber q partida es el pasado combinando una consulta y un update
+    private fun borrarPartidaSinOponente(email:String?) {                                                          //Para borrar las partidas pasadas de tiempo sin oponente
 
-       val db = FirebaseFirestore.getInstance()
-       val codeRef = db.collection("Partidas")
+        val db = FirebaseFirestore.getInstance()
+        val codeRef = db.collection("Partidas")
+
+        codeRef.whereLessThan("FechaHora", com.google.firebase.Timestamp.now()).whereEqualTo("Candidatos", false)
+            .whereEqualTo("Email", email).get()                                                                //Primero obtenemos las partidas que son el pasado
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result) {
+                        codeRef.document(document.id).delete()                                                      //La borramos
+                    }
+                }
+            }
+    }
+
+    private fun partidasJugadas() {                                 //Método para saber q partida es el pasado combinando una consulta y un update
+
+        val db = FirebaseFirestore.getInstance()
+        val codeRef = db.collection("Partidas")
 
 
-       codeRef.whereLessThan("FechaHora",com.google.firebase.Timestamp.now()).whereEqualTo("Email",email)   //Primero obtenemos las partidas que son el pasado
-           .whereEqualTo("EmailOponente",email)
-           .get().addOnCompleteListener { task ->
-           if (task.isSuccessful) {
-               for (document in task.result) {
-                   val update: MutableMap<String, Any> = HashMap()
-                   update["Jugada"] = true
-                   codeRef.document(document.id).set(update, SetOptions.merge())
-               }
-           }
-       }
-   }
+        codeRef.whereLessThan("FechaHora",com.google.firebase.Timestamp.now()).whereEqualTo("Candidatos",true)   //Primero obtenemos las partidas que son el pasado
+
+            .get().addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    for (document in task.result) {
+                        val update: MutableMap<String, Any> = HashMap()
+                        update["Jugada"] = true
+                        codeRef.document(document.id).set(update, SetOptions.merge())
+                    }
+                }
+            }
+    }
 }

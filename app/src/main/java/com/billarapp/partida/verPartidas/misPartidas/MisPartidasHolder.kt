@@ -16,7 +16,7 @@ class MisPartidasHolder (private val binding: ViewItemMisPartidasBinding) : Recy
         binding.tvPartidaHora.text=partida.Hora
         binding.tvPublicadoX2.text=partida.Jugador
         binding.tvPartidaNivel.text=partida.Nivel
-        binding.tvOponente.text=partida.Candidatos
+        binding.tvOponente.text=partida.NombreOponente
 
 
 
