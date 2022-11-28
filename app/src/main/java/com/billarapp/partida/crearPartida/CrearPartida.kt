@@ -1,7 +1,7 @@
 package com.billarapp.partida.crearPartida
 
 
-import android.content.ContentValues
+
 import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -17,9 +17,7 @@ import com.billarapp.Usuario
 import com.billarapp.databinding.ActivityCrearPartidaBinding
 import com.billarapp.mesasBillar.Mesa
 import com.billarapp.partida.crearPartida.adapterCrearParitda.PartidaAdapter
-import com.billarapp.partida.verPartidas.Partida
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.*
 import com.google.firebase.firestore.EventListener
 import java.text.SimpleDateFormat
@@ -51,7 +49,7 @@ class CrearPartida : AppCompatActivity() {
 
         localLista.clear()
 
-        botonCrearPartida()
+        crearPartida()
 
 
     }
@@ -63,7 +61,7 @@ private fun ponerFechayHora(){
         }
     }
 }
-private fun botonCrearPartida(){
+private fun crearPartida(){
 
     bindingPartidas.btnCrearPartida.setOnClickListener(){
 
@@ -92,7 +90,7 @@ private fun botonCrearPartida(){
 
         localLista = arrayListOf()
 
-        adaptadorPartida = PartidaAdapter(localLista) { mesa -> partidaSeleccionada(mesa) }                                 // Creamos el objeto de Nuestra clase MesasAdapter
+        adaptadorPartida = PartidaAdapter(localLista) { mesa -> mesaSeleccionada(mesa) }                                 // Creamos el objeto de Nuestra clase MesasAdapter
 
 
             bindingPartidas.rvPartida.adapter = adaptadorPartida
@@ -104,7 +102,7 @@ private fun botonCrearPartida(){
 
 
 
-private fun partidaSeleccionada(mesa: Mesa){                                        // En cuanto seleccionemos una mesa del recycler view nos creará la partida añadiendo todos los datos necesarios
+private fun mesaSeleccionada(mesa: Mesa){                                        // En cuanto seleccionemos una mesa del recycler view nos creará la partida añadiendo todos los datos necesarios
 
     val fecha =bindingPartidas.etFecha.text.toString()                              //Convertimos tanto la fecha como la hora de String a Date
     val hora=bindingPartidas.etHora.text
@@ -275,8 +273,13 @@ private fun partidaSeleccionada(mesa: Mesa){                                    
 
                         Toast.makeText(this, "Éso es el pasado", Toast.LENGTH_SHORT).show()
 
-                    }else{
-                        if((horas-horaActual)<2){
+                    }
+
+                    else{
+                         if(horas>2&&horas<9){
+                            Toast.makeText(this,"No creo que esté abierto", Toast.LENGTH_SHORT).show()
+                        }
+                        else if((horas-horaActual)<2){
 
 
                             Toast.makeText(this, "Muy ajustada,pero tú mandas", Toast.LENGTH_LONG).show()                                  //Aviso para q deje 2 horas de margen

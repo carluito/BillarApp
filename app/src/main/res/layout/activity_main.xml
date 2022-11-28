@@ -74,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="39dp"
-        android:background="@color/Red"
+        android:background="@android:color/holo_red_light"
         android:text="@string/aviso"
         android:textColor="#000000"
         app:layout_constraintBottom_toTopOf="@+id/btnUnirse"
@@ -83,16 +83,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.87" />
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/mostrarMisPartidas"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

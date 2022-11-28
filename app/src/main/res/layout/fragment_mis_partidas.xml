@@ -4,17 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/Green"
     tools:context=".partida.verPartidas.misPartidas.MisPartidas">
 
     <Button
         android:id="@+id/btnJugadas"
         style="@android:style/Widget.Holo.Button"
-        android:layout_width="102dp"
+        android:layout_width="112dp"
         android:layout_height="46dp"
+        android:background="@color/Brown"
         android:text="@string/jugadas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.97"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -22,12 +24,12 @@
     <Button
         android:id="@+id/btnApuntado"
         style="@android:style/Widget.Holo.Button"
-        android:layout_width="161dp"
+        android:layout_width="163dp"
         android:layout_height="46dp"
+        android:background="@color/Brown"
         android:text="@string/como_oponente"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.528"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
@@ -35,20 +37,21 @@
     <Button
         android:id="@+id/btnPublicadas"
         style="@android:style/Widget.Holo.Button"
-        android:layout_width="114dp"
+        android:layout_width="112dp"
         android:layout_height="46dp"
+        android:background="@color/Brown"
         android:text="@string/publicadas"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.023"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvMisPartidas"
-        android:layout_width="410dp"
-        android:layout_height="627dp"
+        android:layout_width="409dp"
+        android:layout_height="630dp"
         android:background="@drawable/tapeteeditar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

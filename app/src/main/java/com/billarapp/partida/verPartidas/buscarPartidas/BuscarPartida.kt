@@ -102,7 +102,7 @@ class BuscarPartida : Fragment() {
             val email = mAuth.currentUser?.email.toString()
 
 
-            var nombreee: String? = null
+            var nombreee: String? = null                                                      //Variable para guardar el nombre de oonente
 
 
 
@@ -111,14 +111,14 @@ class BuscarPartida : Fragment() {
 
 
                 nombreee =
-                    (it.get("Nombre") as String?)                                                  //Para coger el nombre del oponente
+                    (it.get("Nombre") as String?)                                               //Para coger el nombre del oponente
             }
-
-            val builder = AlertDialog.Builder(activity as Context)                                  //Alert dialog con dos botones para confirmar
+                                                                                                //Alert dialog con dos botones para confirmar
+            val builder = AlertDialog.Builder(activity as Context)                              //Creamos la instancia del builder con su constructor y un contexto
             builder.setTitle("¿Jugar?")
             builder.setMessage("¿Quieres jugar esta partida?")
 
-            builder.setPositiveButton("Cancelar") { _, _ ->
+            builder.setPositiveButton("Cancelar") { _, _ ->                                 //Metodos para establecer los botones
 
             }
             builder.setNegativeButton("Aceptar") { _, _ ->
@@ -128,7 +128,8 @@ class BuscarPartida : Fragment() {
                 db.collection("Partidas").document(partida.Local + partida.Fecha + partida.Hora).update(
                     "NombreOponente", nombreee, "EmailOponente", email,"Candidatos",true).addOnSuccessListener() {
                     Log.d(TAG,"Datos actualizados")
-                    db.collection("Usuarios").document(partida.Email.toString()).update("Aviso",true).addOnSuccessListener(){
+                    db.collection("Usuarios").document(partida.Email.toString())
+                        .update("Aviso",true,"Partida", "Tu partida en "+partida.Local +", dia "+ partida.Fecha +" a las " +partida.Hora+" tiene oponete").addOnSuccessListener(){
                     }
                 } .addOnFailureListener() {
                     Log.d(TAG,"Error Firestore")
@@ -146,40 +147,41 @@ class BuscarPartida : Fragment() {
 
         }
 
-        private fun spinnerProvincias(email: String?) {
+        private fun spinnerProvincias(email: String?) {                                                                      //Mostrar provincias en las que haya partidas sin oponente
 
-            val rootProvinciaRef = FirebaseFirestore.getInstance()
-            val provinciaRef = rootProvinciaRef.collection("Partidas").whereEqualTo("Candidatos", false).whereNotEqualTo("Email",email)
-            val spProvincia = binding.spProvinciaPartida
-            val listaProvincias: MutableList<String?> = ArrayList()
-            val adapter = ArrayAdapter(
+            val rootProvinciaRef = FirebaseFirestore.getInstance()                                                          //Obtenemos la instancia para firestore
+            val provinciaRef = rootProvinciaRef.collection("Partidas")
+                .whereEqualTo("Candidatos", false).whereNotEqualTo("Email",email)                           //Guardamos la consulta en una variable
+            val spProvincia = binding.spProvinciaPartida                                                                    // Vinculamos al spinner del layout guardado en otra variable
+            val listaProvincias: MutableList<String?> = ArrayList()                                                         //lista de provincias que resultara de la consulta a firestore
+            val adapter = ArrayAdapter(                                                                                     //Adaptador del spinner con su contexto tipo de elemento y el arraylist para llenarse
                 activity as Context,
                 android.R.layout.simple_spinner_item,
                 listaProvincias
             )
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)                                  //Vista despliegue hacia abajo
             spProvincia.adapter = adapter
-            provinciaRef.get().addOnCompleteListener(OnCompleteListener { task ->
+            provinciaRef.get().addOnCompleteListener(OnCompleteListener { task ->                                           //Obtenemos cada una de las provincias
                 if (task.isSuccessful) {
 
                     listaProvincias.add("Provincia")                                         //Para que la primera opción del spinner sea buscar provincia
 
-                    for (document in task.result) {
+                    for (document in task.result) {                                         //For para ir rellenando el spinner a medida que se completen las consultas
 
 
                         val provincia = document.getString("Provincia")
 
-                        if (listaProvincias.contains(provincia)) {
-                            println("ListaProvincias " + listaProvincias)
+                        if (listaProvincias.contains(provincia)) {                          //Para que no se repitan las provincias
+                            println("ListaProvincias " + listaProvincias)                   //Para las pruebas
                         } else {
 
-                            listaProvincias.add(provincia)
+                            listaProvincias.add(provincia)                                  //La añade
                         }
                     }
                     adapter.notifyDataSetChanged()
                 }
             })
-            spProvincia.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            spProvincia.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {                  //Para controlar la seleccion de una de ellas
                 override fun onItemSelected(
                     parent: AdapterView<*>?,
                     view: View?,
@@ -189,11 +191,12 @@ class BuscarPartida : Fragment() {
                     provinciaSeleccion = listaProvincias[position]
 
 
-                    spinnerLocalidad()
+                    spinnerLocalidad()                                                                      //Al seleccionar una provincia se llena el spinner localidad
 
                 }
 
-                override fun onNothingSelected(parent: AdapterView<*>?) {
+                override fun onNothingSelected(parent: AdapterView<*>?) {                                   //En caso de no selecionar nada
+
                     Toast.makeText(activity,"Selecciona una provincia",Toast.LENGTH_SHORT).show()
                 }
 
@@ -255,9 +258,9 @@ class BuscarPartida : Fragment() {
 
 
 
-        private fun mesaXLocalidad(email: String?) {
+        private fun mesaXLocalidad(email: String?) {                                                    //Para rellenar el rvBuscarPartida
             val db = FirebaseFirestore.getInstance()
-            db.collection("Partidas").whereEqualTo("Localidad", localidadSeleccion)
+            db.collection("Partidas").whereEqualTo("Localidad", localidadSeleccion)         //Query con la provincia selleccionada
                 .whereNotEqualTo("Email",email).whereEqualTo("Candidatos",false)
                 .addSnapshotListener(object : EventListener<QuerySnapshot> {
 
@@ -269,7 +272,7 @@ class BuscarPartida : Fragment() {
                             Log.e("Error de Firestore", error.message.toString())
                             return
                         }
-                        for (dc: DocumentChange in value?.documentChanges!!) {
+                        for (dc: DocumentChange in value?.documentChanges!!) {                          //for par ir rellenando
 
                             if (dc.type == DocumentChange.Type.ADDED) {
 

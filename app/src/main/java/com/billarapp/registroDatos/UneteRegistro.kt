@@ -65,41 +65,41 @@ class UneteRegistro : AppCompatActivity() {
         }
     }
 
-    private fun registro() {
+    private fun registro() {                                                                    //Metodo para registro y acceso de usuario
         val email = bindingUneteRegistro.etEmailRegistro
         val senha = bindingUneteRegistro.etSenhaRegistro
 
 
-        bindingUneteRegistro.btnRegistro.setOnClickListener {
+        bindingUneteRegistro.btnRegistro.setOnClickListener {                                   //Registro
 
 
-            if (email.text.isNotEmpty() || Patterns.EMAIL_ADDRESS.matcher(email.toString())
+            if (email.text.isNotEmpty() || Patterns.EMAIL_ADDRESS.matcher(email.toString())                                 //Para comprobar que el email cumple lo general
                     .matches() || senha.text.isNotEmpty()
             ) {
 
                 FirebaseAuth.getInstance()
-                    .createUserWithEmailAndPassword(email.text.toString(), senha.text.toString())
+                    .createUserWithEmailAndPassword(email.text.toString(), senha.text.toString())                           //Para comprobar que la contraseña es mayor de 6 caracteres dígitos
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
                             aCompletarFicha(
                                 it.result?.user?.email ?: "",
-                                tipoProveedor.EMAIL)              //Enviamos el email y el tipo de proveedor a completar los datos
+                                tipoProveedor.EMAIL)                                                                        //Enviamos el email y el tipo de proveedor a completar los datos
 
                         } else {
                             fallo()
                         }
                     }
             } else {
-                Toast.makeText(this, "Me cago en dios pon bien el santo y seña", Toast.LENGTH_SHORT)
+                Toast.makeText(this, "Escribe nombre y contraseña", Toast.LENGTH_SHORT)
                     .show()
             }
         }
 
-        bindingUneteRegistro.btnAcceso.setOnClickListener {                  //Para acceder si ya está registrado
+        bindingUneteRegistro.btnAcceso.setOnClickListener {                                     //Para acceder si ya está registrado
             if (email.text.isNotEmpty() && senha.text.isNotEmpty()) {
 
 
-                FirebaseAuth.getInstance()
+                FirebaseAuth.getInstance()                                                      //Comprueba que email y contraseña coinciden con lo guardado
                     .signInWithEmailAndPassword(email.text.toString(), senha.text.toString())
                     .addOnCompleteListener {
                         if (it.isSuccessful) {
@@ -116,7 +116,7 @@ class UneteRegistro : AppCompatActivity() {
 
         bindingUneteRegistro.btnGoogle.setOnClickListener {
 
-                signInGoogle()
+                    autenticacionGoogle()
 
             googleSignInClient.signOut()
 
@@ -125,8 +125,8 @@ class UneteRegistro : AppCompatActivity() {
 
 
     }
-    private fun configuracionGoogle(){
-        //Configuración para entrar con cuenta google
+    private fun configuracionGoogle(){                                                                      //Configuración para entrar con cuenta google
+
         auth = FirebaseAuth.getInstance()
         val configuracionGoogle =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -137,7 +137,7 @@ class UneteRegistro : AppCompatActivity() {
         googleSignInClient= GoogleSignIn.getClient(this, configuracionGoogle)
 
     }
-    private fun signInGoogle(){
+    private fun autenticacionGoogle(){
 
         val singIntent = googleSignInClient.signInIntent
         launcher.launch(singIntent)

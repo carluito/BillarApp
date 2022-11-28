@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.billarapp.R
 import com.billarapp.databinding.FragmentBuscarPartidaBinding
 import com.billarapp.databinding.FragmentPendientesBinding
 import com.billarapp.partida.verPartidas.Partida
@@ -35,13 +34,11 @@ class Pendientes : Fragment() {
 
         _binding = FragmentPendientesBinding.inflate(inflater, container, false)
 
-        mAuth = FirebaseAuth.getInstance()
 
-        val email=mAuth.currentUser?.email.toString()
 
         cargarMesas()
 
-        partidasPendientes(email)
+        partidasPendientes(auth())
 
         return binding.root
 
@@ -51,6 +48,15 @@ class Pendientes : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun auth():String {                                     //Para saber el email
+
+        mAuth = FirebaseAuth.getInstance()                          //Instancia a firebase authentication
+
+        val email=mAuth.currentUser?.email.toString()               //variable sstring con email
+
+        return  email
     }
     private fun cargarMesas() {
 
@@ -74,7 +80,7 @@ class Pendientes : Fragment() {
         alertDialog(partida)
     }
 
-    private fun partidasPendientes(email:String?) {                                                                      //Método para ver todas las mesas, a ver si encuentro un metodo mejor
+    private fun partidasPendientes(email:String?) {                                                                      //Método para ver mediante un query partidas sin oponente
 
         val db = FirebaseFirestore.getInstance()
         db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("Candidatos",false).
@@ -120,6 +126,7 @@ class Pendientes : Fragment() {
 
             db.collection("Partidas").document(partida.Local + partida.Fecha + partida.Hora).delete().addOnSuccessListener() {
                 Log.d(ContentValues.TAG,"Datos actualizados")
+
             } .addOnFailureListener() {
                 Log.d(ContentValues.TAG,"Error Firestore")
             }
@@ -129,15 +136,11 @@ class Pendientes : Fragment() {
                 "Borrada", Toast.LENGTH_SHORT
             ).show()
             partidasLista.clear()
+            partidasPendientes(auth())
         }
 
         val dialog: AlertDialog = builder.create()
         dialog.show()
-
-
-
-
-
 
     }
 }

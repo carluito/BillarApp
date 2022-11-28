@@ -36,6 +36,7 @@
         android:id="@+id/btnBuscarPartida"
         android:layout_width="239dp"
         android:layout_height="48dp"
+        android:background="@color/Brown"
         android:text="@string/buscar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

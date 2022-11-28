@@ -37,16 +37,26 @@ class BuscarMesa : Activity() { //La clase Activity se encarga de crear una vent
 
         spinnerProvincias()
 
+       botonBuscar()
+
+
+
+    }
+
+
+
+    private fun botonBuscar(){
+
         bindingBuscarMesa.btnBuscarMesa.setOnClickListener {
 
-            Toast.makeText(this,"Mantén pulsado en cada local para más información",Toast.LENGTH_SHORT).show()
+            Toast.makeText(this,"Mantén pulsado en cada local para más información",Toast.LENGTH_LONG).show()
 
             if(provinciaSeleccion=="Todas"){                                                // Para cuando selecciones todas salgan todas las mesas y si no x provincia
 
                 todasMesas()
 
             }else{
-                                                                       //Para que rellene el spinner con las localidades de ésa provincia
+                                                                                            //Para que rellene el spinner con las localidades de ésa provincia
                 if(localidadSeleccion!=""){
                     mesaXLocalidad()
                 }else{
@@ -59,10 +69,6 @@ class BuscarMesa : Activity() { //La clase Activity se encarga de crear una vent
 
 
     }
-
-
-
-
 
 
     private fun onItemSelected(mesa:Mesa){                                                          //Para q al hacer long click vaya al navegador a buscarlo x nombre del local y localidad

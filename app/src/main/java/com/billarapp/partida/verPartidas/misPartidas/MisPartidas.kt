@@ -1,6 +1,7 @@
 package com.billarapp.partida.verPartidas.misPartidas
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -9,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.billarapp.Usuario
 import com.billarapp.databinding.FragmentMisPartidasBinding
 import com.billarapp.partida.verPartidas.Partida
 import com.google.firebase.Timestamp.now
@@ -56,12 +58,13 @@ class MisPartidas : Fragment() {
         }
         binding.btnJugadas.setOnClickListener(){
             partidasLista.clear()
-            Jugada(email)
+            misPartidasJugadas(email)
         }
 
 
         return binding.root
     }
+
 
     private fun cargarMesas() {
 
@@ -91,10 +94,8 @@ class MisPartidas : Fragment() {
     private fun misPartidasPublicadas(email: String?) {                                                                      //Método para ver todas las mesas, a ver si encuentro un metodo mejor
         val db = FirebaseFirestore.getInstance()
 
-
-        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("Jugada" ,false).whereEqualTo("Candidatos",true)
-
-            .addSnapshotListener(object :
+        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("Jugada" ,false)
+            .whereEqualTo("Candidatos",true).addSnapshotListener(object :
                         EventListener<QuerySnapshot> {
 
 
@@ -126,6 +127,8 @@ class MisPartidas : Fragment() {
     }
 
     private fun misPartidasComoOponente(email: String?) {                                                                      //Método para ver todas las mesas, a ver si encuentro un metodo mejor
+
+
         val db = FirebaseFirestore.getInstance()
 
 
@@ -160,13 +163,13 @@ class MisPartidas : Fragment() {
 
     }
 
-    private fun Jugada(email: String?) {
+    private fun misPartidasJugadas(email: String?) {
 
         val db = FirebaseFirestore.getInstance()
 
 
 
-        db.collection("Partidas").whereEqualTo("Email",email).whereEqualTo("EmailOponente",email).                      //Consulta para llenar el recycler view donde el email de usuario coincida con el email  y emailoponente ademas de q jugada sea true
+        db.collection("Partidas").whereEqualTo("Email",email).                      //Consulta para llenar el recycler view donde el email de usuario coincida con el email ademas de q jugada sea true
         whereEqualTo("Jugada",true).addSnapshotListener(object :
 
                 EventListener<QuerySnapshot> {
@@ -192,6 +195,33 @@ class MisPartidas : Fragment() {
 
                 }
             })
+        db.collection("Partidas").whereEqualTo("EmailOponente",email).                  //Consulta para llenar el recycler view donde el email de usuario coincida con emailoponente ademas de q jugada sea true
+        whereEqualTo("Jugada",true).addSnapshotListener(object :
+
+            EventListener<QuerySnapshot> {
+
+            override fun onEvent(
+                value: QuerySnapshot?,
+                error: FirebaseFirestoreException?
+            ) {
+                if (error != null) {
+                    Log.e("Error de Firestore", error.message.toString())
+                    return
+                }
+                for (dc: DocumentChange in value?.documentChanges!!) {
+
+                    if (dc.type == DocumentChange.Type.ADDED) {
+
+                        partidasLista.add(dc.document.toObject(Partida::class.java))
+
+                    }
+                }
+
+                adaptadorRvM.notifyDataSetChanged()
+
+            }
+        })
+
 
     }
 

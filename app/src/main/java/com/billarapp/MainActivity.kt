@@ -7,6 +7,7 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.ArrayMap
 import android.view.View
 import android.view.animation.Animation
 import android.widget.Toast
@@ -16,8 +17,10 @@ import com.billarapp.partida.verPartidas.VerPartidas
 import com.billarapp.partida.verPartidas.misPartidas.MisPartidas
 import com.billarapp.registroDatos.UneteRegistro
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import java.lang.reflect.Array
 import java.util.HashMap
 
 class MainActivity : AppCompatActivity() {
@@ -67,7 +70,7 @@ class MainActivity : AppCompatActivity() {
 
     }
     private fun info(){
-        bindingMain.btnInfo.setOnClickListener{ Toast.makeText(this,"ostia", Toast.LENGTH_SHORT).show()}
+        bindingMain.btnInfo.setOnClickListener{ Toast.makeText(this,"Gracias!!.Contacta en billarappcontact@gmail.com", Toast.LENGTH_LONG).show()}
     }
 
     private fun pillarEmail(): String {                                             //Para saber el email del usuario para actualizar
@@ -108,16 +111,25 @@ class MainActivity : AppCompatActivity() {
     private fun pulsarAviso(email: String){                                     //Para que al pulsar el botón del aviso el campo Aviso vuelva a false
         val db = FirebaseFirestore.getInstance()
 
+      var nombrePartida:String?= null
+
+         db.collection("Usuarios").document(email).get().addOnSuccessListener(){
+             nombrePartida=(it.get("Partida")as String?)
+         }
+        var msg="Tu partida "+nombrePartida+ " tiene oponente"
         bindingMain.btnAviso.setOnClickListener(){
+
+
+            Toast.makeText(this, nombrePartida, Toast.LENGTH_LONG).show()
+
             db.collection("Usuarios").document(email).update("Aviso",false).addOnSuccessListener(){         //Aqui le damos el valor false
             }
             intentMain = Intent (this, VerPartidas::class.java)                                                        //Intent para ir a la activity de ver partidas
             startActivity(intentMain)
-            Toast.makeText(this, "Una de tus partidas tiene oponente", Toast.LENGTH_SHORT).show()                       //
         }
 
     }
-    private fun revisarAviso(email: String?){
+    private fun revisarAviso(email: String?){                                                                                      //función para saber si hay oponente
         val db = FirebaseFirestore.getInstance()
         val codeRef = email?.let { db.collection("Usuarios").document(it) }
         var aviso:Boolean?

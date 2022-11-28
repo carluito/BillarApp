@@ -15,7 +15,7 @@ class PantallaSplash :AppCompatActivity() {
 
         //splash.setKeepOnScreenCondition(true) //no vale pa na
 
-        val intent =Intent(this,MainActivity::class.java)
+        val intent =Intent(this,MainActivity::class.java)   //Intent para pasar a la primera activity funcional
         startActivity(intent)
         finish()
 

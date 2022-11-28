@@ -18,6 +18,7 @@ class BuscarPartidaHolder(private val binding:ViewItemPartidaBinding) :RecyclerV
         binding.tvPartidaNivel.text=partida.Nivel
         partida.Jugada=false
 
+
         itemView.setOnClickListener {
             buscarPartidaClickListener(partida)
 

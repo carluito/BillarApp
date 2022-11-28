@@ -12,7 +12,7 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="101dp"
-        />
+        android:background="@drawable/tapeteeditar" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pager"

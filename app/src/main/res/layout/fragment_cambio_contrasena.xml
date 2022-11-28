@@ -18,6 +18,7 @@
             android:id="@+id/btnCambio"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/Olive"
             android:text="@string/cambiar_contrase_a"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
